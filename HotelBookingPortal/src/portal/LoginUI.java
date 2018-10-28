@@ -11,12 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 
 public class LoginUI {
 
 	private JFrame frame;
 	private JTextField tfUsername;
-	private JTextField tfPassword;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -78,11 +79,6 @@ public class LoginUI {
 		panel.add(tfUsername);
 		tfUsername.setColumns(20);
 		
-		tfPassword = new JTextField();
-		tfPassword.setBounds(411, 126, 336, 35);
-		panel.add(tfPassword);
-		tfPassword.setColumns(20);
-		
 		JButton btnLogIn = new JButton("Log In");
 		btnLogIn.setBounds(617, 174, 130, 43);
 		panel.add(btnLogIn);
@@ -103,5 +99,9 @@ public class LoginUI {
 		ivLogin.setHorizontalAlignment(SwingConstants.CENTER);
 		ivLogin.setBounds(74, 63, 152, 136);
 		panel.add(ivLogin);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(411, 126, 336, 35);
+		panel.add(passwordField);
 	}
 }

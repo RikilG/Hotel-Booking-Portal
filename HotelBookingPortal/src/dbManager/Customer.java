@@ -2,33 +2,43 @@ package dbManager;
 
 public class Customer {
 	
-	private int id;
+	private String id;
+	private String username;
+	private String password;
 	private String name;
 	private String dob;
 	private String address;
 	private String email;
-	private String username;
-	private String password;
 	
-	Customer() {
+	public Customer() {
 		
 	}
 	
-	Customer(int id, String name, String dob, String address, String email, String username, String password) {
-		this.id = id;
-		this.name = name;
-		this.dob = dob;
-		this.address = address;
-		this.email = email;
+	public Customer(String id, String username, String password, String name, String dob, String address, String email) {
+		this.id = String.valueOf(id);
 		this.username = username;
 		this.password = password;
+		this.name = name;
+		this.dob = dob;
+		//this.address = address; address might contain ',' delimiter which alters data storage in csv file
+		this.email = email;
+		
+		this.address = "";
+		for(int i=0;i<address.length();i++) {
+			if(address.charAt(i) == ',') {
+				this.address += '~';
+			}
+			else {
+				this.address += address.charAt(i);
+			}
+		}
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -49,11 +59,28 @@ public class Customer {
 	}
 
 	public String getAddress() {
-		return address;
+		String temp = "";
+		for(int i=0;i<address.length();i++) {
+			if(address.charAt(i) == '~') {
+				temp += ',';
+			}
+			else {
+				temp += address.charAt(i);
+			}
+		}
+		return temp;
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = "";
+		for(int i=0;i<address.length();i++) {
+			if(address.charAt(i) == ',') {
+				this.address += '~';
+			}
+			else {
+				this.address += address.charAt(i);
+			}
+		}
 	}
 
 	public String getEmail() {
@@ -80,6 +107,10 @@ public class Customer {
 		this.password = password;
 	}
 	
-	
+	public String toDbString() {
+		String temp = String.valueOf(id) + "," + username + "," + password + "," + name + "," + dob + ","
+				 + address + "," + email;
+		return temp;
+	}
 	
 }
