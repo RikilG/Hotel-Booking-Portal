@@ -1,5 +1,7 @@
 package portal;
 
+import java.awt.EventQueue;
+
 import dbManager.*;
 
 public class Main {
@@ -10,7 +12,17 @@ public class Main {
 		// TODO Auto-generated method stub
 		signInStatus = 0;
 		//DatabaseIO dbio = new DatabaseIO(EnvironmentVariables.USER_DB_NAME);
-		
+		//System.out.println(dbio.checkDB(new Customer("hello","world")));
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginUI window = new LoginUI();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }

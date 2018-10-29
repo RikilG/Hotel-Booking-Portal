@@ -1,11 +1,16 @@
 package portal;
 
+import dbManager.*;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,15 +19,17 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 public class LoginUI {
+	
+	private DatabaseIO dbio = new DatabaseIO(EnvironmentVariables.USER_DB_NAME);
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField tfUsername;
-	private JPasswordField passwordField;
+	private JPasswordField tfPassword;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) { // this is to test this class only.
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -80,6 +87,11 @@ public class LoginUI {
 		tfUsername.setColumns(20);
 		
 		JButton btnLogIn = new JButton("Log In");
+		btnLogIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnLoginOnClick();
+			}
+		});
 		btnLogIn.setBounds(617, 174, 130, 43);
 		panel.add(btnLogIn);
 		
@@ -90,6 +102,13 @@ public class LoginUI {
 		panel.add(lblReg);
 		
 		JButton btnRegisterHere = new JButton("Register Here");
+		btnRegisterHere.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RegisterUI frameRegister = new RegisterUI();
+				frameRegister.setVisible(true);
+				frame.dispose();
+			}
+		});
 		btnRegisterHere.setBounds(508, 288, 130, 35);
 		panel.add(btnRegisterHere);
 		
@@ -100,8 +119,29 @@ public class LoginUI {
 		ivLogin.setBounds(74, 63, 152, 136);
 		panel.add(ivLogin);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(411, 126, 336, 35);
-		panel.add(passwordField);
+		tfPassword = new JPasswordField();
+		tfPassword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnLoginOnClick();
+			}
+		});
+		tfPassword.setBounds(411, 126, 336, 35);
+		panel.add(tfPassword);
+	}
+	
+	private void btnLoginOnClick() {
+		if(dbio.checkDB(new Customer(tfUsername.getText().toLowerCase(),String.valueOf(tfPassword.getPassword()))) == 1) {
+			portal.Main.signInStatus = 1;
+			// call the opener page for hotel booking
+			//RegisterUI frameRegister = new RegisterUI();
+			//frameRegister.setVisible(true);
+			frame.dispose();
+			JOptionPane.showMessageDialog(null, "Login Successful.");
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
+			tfUsername.setText("");
+			tfPassword.setText("");
+		}
 	}
 }

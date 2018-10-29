@@ -14,9 +14,14 @@ public class Customer {
 		
 	}
 	
+	public Customer(String username, String password) {
+		this.username = username.toLowerCase();
+		this.password = password;
+	}
+	
 	public Customer(String id, String username, String password, String name, String dob, String address, String email) {
 		this.id = String.valueOf(id);
-		this.username = username;
+		this.username = username.toLowerCase();
 		this.password = password;
 		this.name = name;
 		this.dob = dob;
@@ -96,7 +101,7 @@ public class Customer {
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.username = username.toLowerCase();
 	}
 
 	public String getPassword() {
