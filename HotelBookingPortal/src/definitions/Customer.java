@@ -1,4 +1,4 @@
-package dbManager;
+package definitions;
 
 public class Customer {
 	
@@ -10,9 +10,7 @@ public class Customer {
 	private String address;
 	private String email;
 	
-	public Customer() {
-		
-	}
+	public Customer() {} //Empty Constructor to put all to null.
 	
 	public Customer(String username, String password) {
 		this.username = username.toLowerCase();

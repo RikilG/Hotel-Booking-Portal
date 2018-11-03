@@ -1,7 +1,5 @@
 package portal;
 
-import dbManager.*;
-
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -12,6 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
+import dbManagers.*;
+import definitions.Customer;
+import definitions.EnvironmentVariables;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -20,7 +23,7 @@ import javax.swing.JPasswordField;
 
 public class LoginUI {
 	
-	private DatabaseIO dbio = new DatabaseIO(EnvironmentVariables.USER_DB_NAME);
+	private CustomerDbManager dbio = new CustomerDbManager(EnvironmentVariables.USER_DB_NAME);
 
 	JFrame frame;
 	private JTextField tfUsername;
@@ -104,8 +107,16 @@ public class LoginUI {
 		JButton btnRegisterHere = new JButton("Register Here");
 		btnRegisterHere.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				RegisterUI frameRegister = new RegisterUI();
-				frameRegister.setVisible(true);
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							RegisterUI window = new RegisterUI();
+							window.frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 				frame.dispose();
 			}
 		});
@@ -131,7 +142,9 @@ public class LoginUI {
 	
 	private void btnLoginOnClick() {
 		if(dbio.checkDB(new Customer(tfUsername.getText().toLowerCase(),String.valueOf(tfPassword.getPassword()))) == 1) {
+			CustomerDbManager dbio = new CustomerDbManager(EnvironmentVariables.USER_DB_NAME);
 			portal.Main.signInStatus = 1;
+			portal.Main.logInCustomer = dbio.getCustomerFromDB(new Customer(tfUsername.getText().toLowerCase(),String.valueOf(tfPassword.getPassword())));
 			// call the opener page for hotel booking
 			//RegisterUI frameRegister = new RegisterUI();
 			//frameRegister.setVisible(true);

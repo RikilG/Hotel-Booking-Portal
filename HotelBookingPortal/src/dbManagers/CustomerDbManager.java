@@ -1,14 +1,21 @@
-package dbManager;
+package dbManagers;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseIO implements EnvironmentVariables{
+import definitions.Customer;
+import definitions.EnvironmentVariables;
+
+public class CustomerDbManager implements EnvironmentVariables{
 	
 	File dbFile;
 	
-	public DatabaseIO(String filename) {
+	public CustomerDbManager() {
+		dbFile = new File(this.getClass().getResource("/"+EnvironmentVariables.USER_DB_NAME).getPath());
+	}
+	
+	public CustomerDbManager(String filename) {
 		dbFile = new File(this.getClass().getResource("/"+filename).getPath());
 	}
 	
@@ -34,6 +41,28 @@ public class DatabaseIO implements EnvironmentVariables{
 			return -1;
 		}
 		return 0;
+		
+	}
+	
+public Customer getCustomerFromDB(Customer customer) {
+		
+		String temp;
+		
+		try(BufferedReader br = new BufferedReader(new FileReader(dbFile))) {
+			if(!dbFile.exists()) {
+				throw new FileNotFoundException();
+			}
+			while((temp=br.readLine())!=null) {
+				String userInfo[] = temp.split(",");
+				if(userInfo.length==7 && userInfo[USERNAME_INDX].equals(customer.getUsername()) && userInfo[PASSWORD_INDX].equals(customer.getPassword())) {
+					return new Customer(userInfo[ID_INDX],userInfo[USERNAME_INDX],userInfo[PASSWORD_INDX],userInfo[NAME_INDX],userInfo[DOB_INDX],userInfo[ADDRESS_INDX],userInfo[EMAIL_INDX]);
+				}
+			}
+		}
+		catch(FileNotFoundException fnfe) {
+		}catch(IOException e) {
+		}
+		return new Customer();
 		
 	}
 	

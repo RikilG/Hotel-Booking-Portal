@@ -1,4 +1,4 @@
-package dbManager;
+package definitions;
 
 public interface EnvironmentVariables {
 
