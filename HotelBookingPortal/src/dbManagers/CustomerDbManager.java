@@ -44,7 +44,7 @@ public class CustomerDbManager implements EnvironmentVariables{
 		
 	}
 	
-public Customer getCustomerFromDB(Customer customer) {
+	public Customer getCustomerFromDB(Customer customer) {
 		
 		String temp;
 		
