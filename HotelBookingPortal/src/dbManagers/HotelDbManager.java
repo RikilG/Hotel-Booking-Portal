@@ -11,7 +11,7 @@ public class HotelDbManager implements definitions.EnvironmentVariables{
 	File hotelFile;
 	
 	public HotelDbManager(String cityName) {
-		hotelFile = new File(this.getClass().getResource("/"+cityName.toLowerCase().trim()+".csv").getPath());
+		hotelFile = new File(this.getClass().getResource("/hotelsDB/"+cityName.toLowerCase().trim()+".csv").getPath());
 	}
 	
 	public Hotel[] readDB() {

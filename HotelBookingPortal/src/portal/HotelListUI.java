@@ -18,8 +18,9 @@ public class HotelListUI {
 
 	private HotelDbManager hotelDb;
 	private Hotel hotelList[];
+	private String cityName;
 	
-	private JFrame frame;
+	public JFrame frame;
 	private JPanel panel;
 	private JPanel header;
 	private JScrollPane scrollPane;
@@ -44,6 +45,7 @@ public class HotelListUI {
 	 * Create the application.
 	 */
 	public HotelListUI(String cityName) {
+		this.cityName = cityName;
 		hotelDb = new HotelDbManager(cityName);
 		hotelList = hotelDb.readDB();
 		initialize();
@@ -67,14 +69,14 @@ public class HotelListUI {
 		scrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
 		
 		header = new JPanel();
-		header.setBackground(new Color((int)(Math.random() * 0x1000000)));
+		header.setBackground(Color.GRAY);
 		header.setPreferredSize(new Dimension(frame.getWidth(),100));
 		header.setMinimumSize(new Dimension(frame.getWidth(),100));
 		panel.add(header);
 		
 		for(Hotel h:hotelList) {
 			panel.add(new JPanel());
-			panel.add(new HotelCard(h));
+			panel.add(new HotelCard(cityName, h,(HotelListUI)this));
 		}
 		panel.add(new JPanel());
 		frame.add(scrollPane);
