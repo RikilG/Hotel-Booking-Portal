@@ -1,12 +1,28 @@
 package portal;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import static javax.swing.ScrollPaneConstants.*;
+
+import dbManagers.HotelDbManager;
+import definitions.Hotel;
+import definitions.HotelCard;
+import javax.swing.BoxLayout;
 
 public class HotelListUI {
 
+	private HotelDbManager hotelDb;
+	private Hotel hotelList[];
+	
 	private JFrame frame;
+	private JPanel panel;
+	private JPanel header;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -15,7 +31,7 @@ public class HotelListUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HotelListUI window = new HotelListUI();
+					HotelListUI window = new HotelListUI("chennai");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +43,9 @@ public class HotelListUI {
 	/**
 	 * Create the application.
 	 */
-	public HotelListUI() {
+	public HotelListUI(String cityName) {
+		hotelDb = new HotelDbManager(cityName);
+		hotelList = hotelDb.readDB();
 		initialize();
 	}
 
@@ -36,8 +54,30 @@ public class HotelListUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		panel = new JPanel();
+		scrollPane = new JScrollPane(panel);
+		
+		//frame.setResizable(false);
+		frame.setBounds(100, 100, 900, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setBounds(0, 0, frame.getBounds().width, frame.getBounds().height);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		scrollPane.setBounds(0, 0, frame.getBounds().width, frame.getBounds().height);
+		scrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+		
+		header = new JPanel();
+		header.setBackground(new Color((int)(Math.random() * 0x1000000)));
+		header.setPreferredSize(new Dimension(frame.getWidth(),100));
+		header.setMinimumSize(new Dimension(frame.getWidth(),100));
+		panel.add(header);
+		
+		for(Hotel h:hotelList) {
+			panel.add(new JPanel());
+			panel.add(new HotelCard(h));
+		}
+		panel.add(new JPanel());
+		frame.add(scrollPane);
 	}
 
 }

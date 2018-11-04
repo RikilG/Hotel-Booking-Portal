@@ -5,14 +5,16 @@ public class Hotel {
 	private String name;
 	private String address;
 	private String rooms;
+	private String amenities;
 	
 	public Hotel() {} //Empty constructor to keep all to null.
 	
-	public Hotel(String id, String name, String address, String rooms) {
+	public Hotel(String id, String name, String address, String rooms, String amenities) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.rooms = rooms;
+		this.amenities = amenities;
 	}
 
 	public String getId() {
@@ -52,6 +54,31 @@ public class Hotel {
 			}
 			else {
 				this.address += address.charAt(i);
+			}
+		}
+	}
+	
+	public String getAmenities() {
+		String temp = "";
+		for(int i=0;i<amenities.length();i++) {
+			if(address.charAt(i) == '~') {
+				temp += ',';
+			}
+			else {
+				temp += amenities.charAt(i);
+			}
+		}
+		return temp;
+	}
+	
+	public void setAmenities(String amenities) {
+		this.amenities = "";
+		for(int i=0;i<amenities.length();i++) {
+			if(amenities.charAt(i) == ',') {
+				this.amenities += '~';
+			}
+			else {
+				this.amenities += amenities.charAt(i);
 			}
 		}
 	}

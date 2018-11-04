@@ -19,4 +19,5 @@ public interface EnvironmentVariables {
 	int H_NAME_INDX = 1;
 	int H_ADDRESS_INDX = 2;
 	int H_ROOMS_INDX = 3;
+	int H_AMENITIES_INDX = 4;
 }
