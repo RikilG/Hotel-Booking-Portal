@@ -61,7 +61,7 @@ public class Hotel {
 	public String getAmenities() {
 		String temp = "";
 		for(int i=0;i<amenities.length();i++) {
-			if(address.charAt(i) == '~') {
+			if(amenities.charAt(i) == '~') {
 				temp += ',';
 			}
 			else {

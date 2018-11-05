@@ -90,7 +90,7 @@ public class HotelCard extends JPanel {
 		leftPanel.setSize(new Dimension((int)(dimX*0.3), dimY - 2*padding));
 		leftPanel.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
-				openHotelPage();
+				openHotelViewPage();
 			}
 		});
 		setImage(leftPanel, hotel.getId());
@@ -101,7 +101,7 @@ public class HotelCard extends JPanel {
 		rightPanel.setLayout(null);
 		rightPanel.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
-				openHotelPage();
+				openHotelViewPage();
 			}
 		});
 		add(rightPanel);
@@ -120,7 +120,7 @@ public class HotelCard extends JPanel {
 		btnViewHotel.setBounds(rightPanel.getSize().width - 102, 2, 100, 33);
 		btnViewHotel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openHotelPage();
+				openHotelViewPage();
 			}
 		});
 		rightPanel.add(btnViewHotel);
@@ -134,7 +134,7 @@ public class HotelCard extends JPanel {
 	    jp.add(jl);
 	}
 	
-	private void openHotelPage() {
+	private void openHotelViewPage() {
 		setBackground(new Color((int)(Math.random() * 0x1000000)));
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
