@@ -77,8 +77,8 @@ public class DestinationsUI implements ActionListener {
 		lblSelectDestinationCity.setBounds(58, 76, 249, 28);
 		frame.getContentPane().add(lblSelectDestinationCity);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Screenshot (10).png")));
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Sahmedabad.png")));
 		lblNewLabel_1.setBounds(58, 115, 92, 83);
 		frame.getContentPane().add(lblNewLabel_1);
 		
@@ -90,7 +90,7 @@ public class DestinationsUI implements ActionListener {
 		radioButton.addActionListener(this);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Screenshot (11).png")));
+		label.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Shyderabad.png")));
 		label.setBounds(407, 115, 83, 83);
 		frame.getContentPane().add(label);
 		
@@ -102,7 +102,7 @@ public class DestinationsUI implements ActionListener {
 		radioButton_1.addActionListener(this);
 		
 		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Screenshot (12).png")));
+		label_1.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Schennai.png")));
 		label_1.setBounds(752, 115, 83, 83);
 		frame.getContentPane().add(label_1);
 		
@@ -114,7 +114,7 @@ public class DestinationsUI implements ActionListener {
 		radioButton_2.addActionListener(this);
 		
 		JLabel label_2 = new JLabel("");
-		label_2.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Screenshot (7).png")));
+		label_2.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Smumbai.png")));
 		label_2.setBounds(58, 225, 92, 92);
 		frame.getContentPane().add(label_2);
 		
@@ -126,7 +126,7 @@ public class DestinationsUI implements ActionListener {
 		radioButton_3.addActionListener(this);
 		
 		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Screenshot (8).png")));
+		label_3.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Sncr.png")));
 		label_3.setBounds(407, 225, 74, 92);
 		frame.getContentPane().add(label_3);
 		
@@ -137,8 +137,8 @@ public class DestinationsUI implements ActionListener {
 		radioButton.setActionCommand("Delhi");
 		radioButton_4.addActionListener(this);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Screenshot (9).png")));
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(DestinationsUI.class.getResource("/hotelsDB/Sbanglore.png")));
 		lblNewLabel_2.setBounds(752, 225, 83, 92);
 		frame.getContentPane().add(lblNewLabel_2);
 		
