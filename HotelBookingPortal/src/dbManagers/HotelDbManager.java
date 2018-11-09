@@ -28,7 +28,10 @@ public class HotelDbManager implements definitions.EnvironmentVariables{
 				}
 			}
 		}catch(FileNotFoundException fnfe) {
+			System.out.println(fnfe);
+			fnfe.printStackTrace();
 		}catch(Exception e) {
+			System.out.println(e);
 		}
 		return hotels.toArray(new Hotel[hotels.size()]);
 	}
@@ -49,7 +52,11 @@ public class HotelDbManager implements definitions.EnvironmentVariables{
 			}
 		}
 		catch(FileNotFoundException fnfe) {
+			System.out.println(fnfe);
+			fnfe.printStackTrace();
 		}catch(IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
 		}
 		return new Hotel();
 		

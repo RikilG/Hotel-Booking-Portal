@@ -36,8 +36,12 @@ public class CustomerDbManager implements EnvironmentVariables{
 			}
 		}
 		catch(FileNotFoundException fnfe) {
+			System.out.println(fnfe);
+			fnfe.printStackTrace();
 			return -1;
 		}catch(IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
 			return -1;
 		}
 		return 0;
@@ -60,7 +64,11 @@ public class CustomerDbManager implements EnvironmentVariables{
 			}
 		}
 		catch(FileNotFoundException fnfe) {
+			System.out.println(fnfe);
+			fnfe.printStackTrace();
 		}catch(IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
 		}
 		return new Customer();
 		
@@ -80,7 +88,11 @@ public class CustomerDbManager implements EnvironmentVariables{
 				}
 			}
 		}catch(FileNotFoundException fnfe) {
+			System.out.println(fnfe);
+			fnfe.printStackTrace();
 		}catch(Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
 		}
 		return customers.toArray(new Customer[customers.size()]);
 	}
@@ -96,6 +108,8 @@ public class CustomerDbManager implements EnvironmentVariables{
 			return 1;
 		}
 		catch (IOException e){
+			System.out.println(e);
+			e.printStackTrace();
 			return -1;
 		}
 		
