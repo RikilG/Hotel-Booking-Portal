@@ -28,7 +28,7 @@ import javax.swing.Action;
 
 public class DestinationsUI implements ActionListener {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JDateChooser dateChooser_1;

@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class HotelViewUI {
 
@@ -29,6 +30,7 @@ public class HotelViewUI {
 	private JPanel header;
 	private JPanel panel;
 	private JLabel ivback;
+	private JLabel ivProfile;
 	private JLabel ivHotelImage;
 
 	/**
@@ -72,11 +74,12 @@ public class HotelViewUI {
 		
 		header = new JPanel();
 		header.setBounds(0, 0, frame.getWidth()-18, 50);
-		header.setBackground(Color.GRAY.brighter());
+		header.setBackground(new Color(255, 102, 0));
 		header.setLayout(new BorderLayout(0, 0));
 		panel.add(header, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("Hotel Info");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(lblNewLabel, BorderLayout.CENTER);
 		
@@ -100,9 +103,20 @@ public class HotelViewUI {
 		});
 		header.add(ivback, BorderLayout.WEST);
 		
+		ivProfile = new JLabel("My Profile  ");
+		Image iprofile = new ImageIcon(this.getClass().getResource("/profile.png")).getImage().getScaledInstance(header.getHeight()-10, header.getHeight()-10, Image.SCALE_DEFAULT);
+		ivProfile.setIcon(new ImageIcon(iprofile));
+		ivProfile.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent me) {
+				
+			}
+		});
+		header.add(ivProfile,BorderLayout.EAST);
+		
 		ivHotelImage = new JLabel();
+		ivHotelImage.setHorizontalAlignment(SwingConstants.CENTER);
 		ivHotelImage.setPreferredSize(new Dimension(200,200));
-		Image hotelImage = new ImageIcon(this.getClass().getResource("/hotelsDB/" + hotel.getId().trim() + ".jpg")).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+		Image hotelImage = new ImageIcon(this.getClass().getResource("/hotelsDB/" + hotel.getId().trim() + ".jpg")).getImage().getScaledInstance(250, 200, Image.SCALE_DEFAULT);
 		ivHotelImage.setIcon(new ImageIcon(hotelImage));
 		panel.add(ivHotelImage, BorderLayout.WEST);
 		

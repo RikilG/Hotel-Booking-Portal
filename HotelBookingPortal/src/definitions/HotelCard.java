@@ -82,7 +82,7 @@ public class HotelCard extends JPanel {
 		setMinimumSize(new Dimension(dimX, dimY));
 		setMaximumSize(new Dimension(dimX, dimY));
 		setBackground(new Color(211,211,211));
-		setBorder(new LineBorder(Color.WHITE, 5, true));
+		setBorder(new LineBorder(Color.BLUE, 2, true));
 		setLayout(null);
 		
 		leftPanel = new JPanel();
