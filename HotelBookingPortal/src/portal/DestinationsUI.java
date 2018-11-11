@@ -19,6 +19,9 @@ import java.awt.Color;
 
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+
+import definitions.UserRequirements;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -32,7 +35,7 @@ public class DestinationsUI implements ActionListener {
 	private String city="";
 	JLabel lblNewLabel_4 = new JLabel();
 	private JDateChooser dateChooser ;
-	private String userid;
+	int room=-1,person=-1;
 	/**
 	 * Launch the application.
 	 */
@@ -40,7 +43,7 @@ public class DestinationsUI implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DestinationsUI window = new DestinationsUI("Raj");
+					DestinationsUI window = new DestinationsUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,8 +55,7 @@ public class DestinationsUI implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public DestinationsUI(String userid) {
-		this.userid=userid;
+	public DestinationsUI() {
 		initialize();
 	}
 
@@ -256,11 +258,9 @@ public class DestinationsUI implements ActionListener {
 					lblNewLabel_4.setText("Invalid in/out dates");
 				else {
 					try {
-					@SuppressWarnings("unused")
-					int room=Integer.parseInt(textField.getText());
+				 room=Integer.parseInt(textField.getText());
 					flag=1;
-					@SuppressWarnings("unused")
-					int person=Integer.parseInt(textField_1.getText());
+				 person=Integer.parseInt(textField_1.getText());
 					flag=2;
 					}
 					catch(Exception exp) {
@@ -273,7 +273,8 @@ public class DestinationsUI implements ActionListener {
 						EventQueue.invokeLater(new Runnable() {
 							public void run() {
 								try {
-									HotelListUI window = new HotelListUI(city);
+									HotelListUI window = new HotelListUI(new UserRequirements(city,dateChooser.getDate().getTime(),
+											dateChooser_1.getDate().getTime(),room,person));
 									window.frame.setVisible(true);
 								} catch (Exception e) {
 									e.printStackTrace();

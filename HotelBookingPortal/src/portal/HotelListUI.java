@@ -14,6 +14,8 @@ import static javax.swing.ScrollPaneConstants.*;
 import dbManagers.HotelDbManager;
 import definitions.Hotel;
 import definitions.HotelCard;
+import definitions.UserRequirements;
+
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,6 +39,7 @@ public class HotelListUI {
 	private JPanel header;
 	private JLabel title;
 	private JScrollPane scrollPane;
+	private UserRequirements req;
 
 	/**
 	 * Launch the application.
@@ -60,6 +63,13 @@ public class HotelListUI {
 	public HotelListUI(String cityName) {
 		this.cityName = cityName;
 		hotelDb = new HotelDbManager(cityName);
+		hotelList = hotelDb.readDB();
+		initialize();
+	}
+	
+	public HotelListUI(UserRequirements ur) {
+		req=ur;
+		hotelDb = new HotelDbManager(ur.getCity());
 		hotelList = hotelDb.readDB();
 		initialize();
 	}
@@ -102,7 +112,7 @@ public class HotelListUI {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							DestinationsUI window = new DestinationsUI("raj");
+							DestinationsUI window = new DestinationsUI();
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
