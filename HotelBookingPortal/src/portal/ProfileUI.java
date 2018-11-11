@@ -93,6 +93,10 @@ public class ProfileUI {
 		hotelList = hotelDb.readDB();
 		initialize();
 	}
+	public ProfileUI() {
+		user = portal.Main.logInCustomer;
+		initialize();
+	}
 
 	/**
 	 * Initialize the contents of the frame.

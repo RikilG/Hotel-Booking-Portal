@@ -6,15 +6,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import com.toedter.calendar.JCalendar;
@@ -35,6 +39,7 @@ public class DestinationsUI implements ActionListener {
 	private String city="";
 	JLabel lblNewLabel_4 = new JLabel();
 	private JDateChooser dateChooser ;
+	private JLabel ivProfile;
 	int room=-1,person=-1;
 	/**
 	 * Launch the application.
@@ -229,7 +234,17 @@ public class DestinationsUI implements ActionListener {
 		catch(Exception e) {
 			
 		}
-	
+		
+		ivProfile = new JLabel("My Profile  ");
+		ivProfile.setBounds(752,13,122,56);
+		Image iprofile = new ImageIcon(this.getClass().getResource("/profile.png")).getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT);
+		ivProfile.setIcon(new ImageIcon(iprofile));
+		ivProfile.addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent me) {
+				new ProfileUI();
+			}
+		});
+		frame.getContentPane().add(ivProfile);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -290,5 +305,4 @@ public class DestinationsUI implements ActionListener {
 			city=str;
 		frame.repaint();
 	}
-	
 }
