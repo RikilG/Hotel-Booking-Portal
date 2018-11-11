@@ -8,8 +8,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,11 +19,12 @@ import java.awt.Color;
 
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+
+import definitions.UserRequirements;
+
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
+
 
 public class DestinationsUI implements ActionListener {
 
@@ -32,7 +32,10 @@ public class DestinationsUI implements ActionListener {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JDateChooser dateChooser_1;
-	String city="";
+	private String city="";
+	JLabel lblNewLabel_4 = new JLabel();
+	private JDateChooser dateChooser ;
+	int room=-1,person=-1;
 	/**
 	 * Launch the application.
 	 */
@@ -65,6 +68,8 @@ public class DestinationsUI implements ActionListener {
 		frame.setBounds(100, 100, 900, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		//JDateChooser dateChooser = new JDateChooser();
 		
 		JLabel lblNewLabel = new JLabel("Welcome to Hotel Booking Portal");
 		lblNewLabel.setFont(new Font("Century Schoolbook", Font.PLAIN, 25));
@@ -134,7 +139,7 @@ public class DestinationsUI implements ActionListener {
 		radioButton_4.setBackground(Color.WHITE);
 		radioButton_4.setBounds(381, 225, 21, 23);
 		frame.getContentPane().add(radioButton_4);
-		radioButton.setActionCommand("Delhi");
+		radioButton_4.setActionCommand("Delhi");
 		radioButton_4.addActionListener(this);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
@@ -166,7 +171,7 @@ public class DestinationsUI implements ActionListener {
 		lblCheckInDate.add(j);
 		Date d=new Date();
 		
-		JDateChooser dateChooser = new JDateChooser();
+		 dateChooser = new JDateChooser();
 		dateChooser.setBounds(448, 355, 100, 20);
 		try {
 		frame.getContentPane().add(dateChooser);
@@ -181,7 +186,7 @@ public class DestinationsUI implements ActionListener {
 		lblCheckOutDate.setBounds(328, 392, 110, 14);
 		frame.getContentPane().add(lblCheckOutDate);
 		
-		dateChooser_1 = new JDateChooser();
+		dateChooser_1=new JDateChooser();
 		dateChooser_1.setBounds(448, 386, 100, 20);
 		dateChooser_1.setMinSelectableDate(d);
 		frame.getContentPane().add(dateChooser_1);	
@@ -227,12 +232,12 @@ public class DestinationsUI implements ActionListener {
 	
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
-		JTextPane lblNewLabel_4 = new JTextPane();
+		int flag=0;
+		lblNewLabel_4.setText("");
 		lblNewLabel_4.setForeground(Color.RED);
 		lblNewLabel_4.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		lblNewLabel_4.setBounds(23, 394, 200, 28);
+		lblNewLabel_4.setBounds(23, 394, 250, 50);
 		frame.getContentPane().add(lblNewLabel_4);
         String str=e.getActionCommand(); 
 		if(str=="Submit") {
@@ -240,12 +245,50 @@ public class DestinationsUI implements ActionListener {
 		    lblNewLabel_4.setText("Please Select a city!");
 			}
 			else {
-				lblNewLabel_4.setText((dateChooser_1.getDate()).toString());
-				System.out.println(dateChooser_1.getDate());
+				if(dateChooser.getDate()==null) {
+					//System.out.println("Inside first if"+dateChooser.getDate());
+					
+				lblNewLabel_4.setText("Please enter check in date");
+				}
+				else if(dateChooser_1.getDate()==null) {
+					//System.out.println
+				lblNewLabel_4.setText("Please enter check out date");
+				}
+				else if(dateChooser_1.getDate().getTime()<dateChooser.getDate().getTime())
+					lblNewLabel_4.setText("Invalid in/out dates");
+				else {
+					try {
+				 room=Integer.parseInt(textField.getText());
+					flag=1;
+				 person=Integer.parseInt(textField_1.getText());
+					flag=2;
+					}
+					catch(Exception exp) {
+						if(flag==0)
+						lblNewLabel_4.setText("Enter valid no.of rooms");
+						else
+						lblNewLabel_4.setText("Enter valid no.of persons");
+					}
+					if(flag==2) {
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									HotelListUI window = new HotelListUI(new UserRequirements(city,dateChooser.getDate().getTime(),
+											dateChooser_1.getDate().getTime(),room,person));
+									window.frame.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						});
+						frame.dispose();
+					}
+				}
 			}	
 		}
 		else
 			city=str;
+		frame.repaint();
 	}
 	
 }
