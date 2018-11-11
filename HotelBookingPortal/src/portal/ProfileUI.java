@@ -38,8 +38,6 @@ public class ProfileUI {
 	public JFrame frame;
 	private JPanel spanel;
 	private JPanel panel;
-	private JPanel subPanel1;
-	private JPanel subPanel2;
 	private JScrollPane scrollPane;
 	private JPanel panelLeft;
 	private JPanel panelTop;
@@ -75,7 +73,7 @@ public class ProfileUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ProfileUI window = new ProfileUI("chennai", new Customer("hello","world"),1);
+					ProfileUI window = new ProfileUI("chennai",1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -87,8 +85,8 @@ public class ProfileUI {
 	/**
 	 * Create the application.
 	 */
-	public ProfileUI(String cityName, Customer c,int ind) {
-		user = c;
+	public ProfileUI(String cityName,int ind) {
+		user = portal.Main.logInCustomer;
 		this.cityName = cityName;
 		index=ind;
 		hotelDb = new HotelDbManager(cityName);
@@ -139,6 +137,21 @@ public class ProfileUI {
 		panelBottom.add(panel_3);
 		
 		btnBookHotel = new JButton("BOOK A HOTEL");
+		btnBookHotel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							DestinationsUI window = new DestinationsUI();
+							window.frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				frame.dispose();
+			}
+		});
 		btnBookHotel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		panel_3.add(btnBookHotel);
 		

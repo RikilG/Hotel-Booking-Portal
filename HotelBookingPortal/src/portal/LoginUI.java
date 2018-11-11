@@ -145,11 +145,18 @@ public class LoginUI {
 			CustomerDbManager dbio = new CustomerDbManager(EnvironmentVariables.USER_DB_NAME);
 			portal.Main.signInStatus = 1;
 			portal.Main.logInCustomer = dbio.getCustomerFromDB(new Customer(tfUsername.getText().toLowerCase(),String.valueOf(tfPassword.getPassword())));
-			// call the opener page for hotel booking
-			//RegisterUI frameRegister = new RegisterUI();
-			//frameRegister.setVisible(true);
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						ProfileUI window = new ProfileUI("chennai",1);
+						window.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 			frame.dispose();
-			JOptionPane.showMessageDialog(null, "Login Successful.");
+			//JOptionPane.showMessageDialog(null, "Login Successful.");
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Invalid Username or Password.");
