@@ -15,6 +15,7 @@ public class Customer {
 	public Customer(String username, String password) {
 		this.username = username.toLowerCase();
 		this.password = password;
+		address = "";
 	}
 	
 	public Customer(String id, String username, String password, String name, String dob, String address, String email) {

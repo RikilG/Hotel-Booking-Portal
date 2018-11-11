@@ -238,7 +238,7 @@ public class ProfileUI {
 		
 		for(Hotel h:hotelList) {
 			spanel.add(new JPanel());
-			//spanel.add(new HotelCard(cityName, h,frame)); uncomment this.
+			spanel.add(new HotelCard(cityName, h,HotelCard.VIEWING));
 		}
 		spanel.add(new JPanel());
 		frame.getContentPane().add(scrollPane);
