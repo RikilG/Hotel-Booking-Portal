@@ -29,7 +29,7 @@ public class CustomerDbManager implements EnvironmentVariables{
 			}
 			while((temp=br.readLine())!=null) {
 				String userInfo[] = temp.split(",");
-				if(userInfo.length==7 && userInfo[USERNAME_INDX].equals(customer.getUsername()) && userInfo[PASSWORD_INDX].equals(customer.getPassword())) {
+				if(userInfo.length==USER_INFO_SIZE && userInfo[USERNAME_INDX].equals(customer.getUsername()) && userInfo[PASSWORD_INDX].equals(customer.getPassword())) {
 					portal.Main.signInStatus = 1;
 					return 1;
 				}
@@ -58,7 +58,7 @@ public class CustomerDbManager implements EnvironmentVariables{
 			}
 			while((temp=br.readLine())!=null) {
 				String userInfo[] = temp.split(",");
-				if(userInfo.length==7 && userInfo[USERNAME_INDX].equals(customer.getUsername()) && userInfo[PASSWORD_INDX].equals(customer.getPassword())) {
+				if(userInfo.length==USER_INFO_SIZE && userInfo[USERNAME_INDX].equals(customer.getUsername()) && userInfo[PASSWORD_INDX].equals(customer.getPassword())) {
 					return new Customer(userInfo[ID_INDX],userInfo[USERNAME_INDX],userInfo[PASSWORD_INDX],userInfo[NAME_INDX],userInfo[DOB_INDX],userInfo[ADDRESS_INDX],userInfo[EMAIL_INDX]);
 				}
 			}
@@ -83,7 +83,7 @@ public class CustomerDbManager implements EnvironmentVariables{
 			}
 			while((temp=br.readLine())!=null) {
 				String userInfo[] = temp.split(",");
-				if(userInfo.length==7) {
+				if(userInfo.length==USER_INFO_SIZE) {
 					customers.add(new Customer(userInfo[ID_INDX],userInfo[USERNAME_INDX],userInfo[PASSWORD_INDX],userInfo[NAME_INDX],userInfo[DOB_INDX],userInfo[ADDRESS_INDX],userInfo[EMAIL_INDX]));
 				}
 			}

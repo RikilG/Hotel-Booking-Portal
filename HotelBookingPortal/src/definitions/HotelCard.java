@@ -13,9 +13,11 @@ import java.awt.event.MouseAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dbManagers.HotelDbManager;
+import portal.HotelBookingUI;
 import portal.HotelListUI;
 import portal.HotelViewUI;
 
@@ -24,9 +26,13 @@ import javax.swing.border.LineBorder;
 
 public class HotelCard extends JPanel {
 	
-	private HotelListUI caller;
+	public static final int BOOKING=1;
+	public static final int VIEWING=0;
+	
+//	private HotelListUI caller;
 	private HotelDbManager hotelDb;
 	private Hotel hotel;
+	private int bookingStatus;
 //	String hotelId;
 	String cityName;
 	private int dimX;
@@ -42,10 +48,11 @@ public class HotelCard extends JPanel {
 	/**
 	 * @wbp.parser.constructor 
 	 */
-	public HotelCard(String cityName, Hotel hotel, HotelListUI caller) {
+	public HotelCard(String cityName, Hotel hotel,int bookingStatus/*, HotelListUI caller*/) {
 		this.cityName = cityName;
 		this.hotel = hotel;
-		this.caller = caller;
+		this.bookingStatus = bookingStatus;
+		//this.caller = caller;
 		dimX = 800;dimY = 150;
 		setMeasures();
 	}
@@ -107,7 +114,7 @@ public class HotelCard extends JPanel {
 		add(rightPanel);
 		
 		lblHotelname = new JLabel(hotel.getName());
-		lblHotelname.setBounds(0, 0, rightPanel.getSize().width - 102, 33);
+		lblHotelname.setBounds(0, 0, rightPanel.getSize().width - 205, 33);
 		lblHotelname.setFont(new Font("Dialog", Font.BOLD, 20));
 		rightPanel.add(lblHotelname);
 		
@@ -116,14 +123,35 @@ public class HotelCard extends JPanel {
 		lblHotelcontent.setBounds(0, 36, rightPanel.getSize().width, rightPanel.getSize().height - lblHotelname.getSize().height - padding/2);
 		rightPanel.add(lblHotelcontent);
 		
-		btnViewHotel = new JButton("View Hotel");
-		btnViewHotel.setBounds(rightPanel.getSize().width - 102, 2, 100, 33);
-		btnViewHotel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openHotelViewPage();
-			}
-		});
-		rightPanel.add(btnViewHotel);
+		if(bookingStatus == BOOKING) {
+			btnViewHotel = new JButton("View Hotel");
+			btnViewHotel.setBounds(rightPanel.getSize().width - 102, 2, 100, 33);
+			btnViewHotel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					openHotelViewPage();
+				}
+			});
+			rightPanel.add(btnViewHotel);
+			
+			btnViewHotel = new JButton("Book Hotel");
+			btnViewHotel.setBounds(rightPanel.getSize().width - 204, 2, 100, 33);
+			btnViewHotel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					openHotelBookPage();
+				}
+			});
+			rightPanel.add(btnViewHotel);
+		}
+		else if(bookingStatus == VIEWING) {
+			btnViewHotel = new JButton("Cancel Booking");
+			btnViewHotel.setBounds(rightPanel.getSize().width - 152, 2, 150, 33);
+			btnViewHotel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					bookingCancel();
+				}
+			});
+			rightPanel.add(btnViewHotel);
+		}
 	}
 
 	private void setImage(JPanel jp, String hotelId) {
@@ -135,7 +163,8 @@ public class HotelCard extends JPanel {
 	}
 	
 	private void openHotelViewPage() {
-		setBackground(new Color((int)(Math.random() * 0x1000000)));
+		//setBackground(new Color((int)(Math.random() * 0x1000000)));
+		setBackground(Color.LIGHT_GRAY);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -146,6 +175,29 @@ public class HotelCard extends JPanel {
 				}
 			}
 		});
-		caller.frame.dispose();
+		//caller.frame.dispose();
+	}
+	
+	private void openHotelBookPage() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HotelBookingUI window = new HotelBookingUI(hotel);
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	private void bookingCancel() {
+		int ans = JOptionPane.showConfirmDialog(null,"Do you really want to cancel this booking?");
+		if(ans == JOptionPane.YES_OPTION) {
+			// delete corresponding hotel for this user (portal.Main.LogInUser)
+		}
+		else {
+			
+		}
 	}
 }

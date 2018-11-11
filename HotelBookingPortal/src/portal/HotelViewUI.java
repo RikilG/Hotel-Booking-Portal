@@ -63,8 +63,9 @@ public class HotelViewUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 570);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(200, 150, 900, 570);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		panel = new JPanel();
@@ -83,21 +84,21 @@ public class HotelViewUI {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(lblNewLabel, BorderLayout.CENTER);
 		
-		ivback = new JLabel("Go Back");
-		Image iback = new ImageIcon(this.getClass().getResource("/back.png")).getImage().getScaledInstance(header.getHeight()-10, header.getHeight()-10, Image.SCALE_DEFAULT);
+		ivback = new JLabel("Close");
+		Image iback = new ImageIcon(this.getClass().getResource("/delete.png")).getImage().getScaledInstance(header.getHeight()-20, header.getHeight()-20, Image.SCALE_DEFAULT);
 		ivback.setIcon(new ImageIcon(iback));
 		ivback.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							HotelListUI window = new HotelListUI(cityName);
-							window.frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
+//				EventQueue.invokeLater(new Runnable() {
+//					public void run() {
+//						try {
+//							HotelListUI window = new HotelListUI(cityName);
+//							window.frame.setVisible(true);
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//						}
+//					}
+//				});
 				frame.dispose();
 			}
 		});

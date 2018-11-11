@@ -23,7 +23,7 @@ public class HotelDbManager implements definitions.EnvironmentVariables{
 			}
 			while((temp=br.readLine())!=null) {
 				String hotelInfo[] = temp.split(",");
-				if(hotelInfo.length==5) {
+				if(hotelInfo.length==HOTEL_INFO_SIZE) {
 					hotels.add(new Hotel(hotelInfo[H_ID_INDX],hotelInfo[H_NAME_INDX],hotelInfo[H_ADDRESS_INDX],hotelInfo[H_ROOMS_INDX],hotelInfo[H_AMENITIES_INDX]));
 				}
 			}
@@ -46,7 +46,7 @@ public class HotelDbManager implements definitions.EnvironmentVariables{
 			}
 			while((temp=br.readLine())!=null) {
 				String hotelInfo[] = temp.split(",");
-				if(hotelInfo.length==5 && hotelInfo[H_ID_INDX].equals(hotelId)) {
+				if(hotelInfo.length==HOTEL_INFO_SIZE && hotelInfo[H_ID_INDX].equals(hotelId)) {
 					return new Hotel(hotelInfo[H_ID_INDX],hotelInfo[H_NAME_INDX],hotelInfo[H_ADDRESS_INDX],hotelInfo[H_ROOMS_INDX],hotelInfo[H_AMENITIES_INDX]);
 				}
 			}

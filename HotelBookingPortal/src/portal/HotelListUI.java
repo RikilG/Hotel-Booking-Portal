@@ -126,7 +126,7 @@ public class HotelListUI {
 		
 		for(Hotel h:hotelList) {
 			panel.add(new JPanel());
-			panel.add(new HotelCard(cityName, h,(HotelListUI)this));
+			panel.add(new HotelCard(cityName, h, HotelCard.BOOKING/*,(HotelListUI)this*/));
 		}
 		panel.add(new JPanel());
 		frame.getContentPane().add(scrollPane);
