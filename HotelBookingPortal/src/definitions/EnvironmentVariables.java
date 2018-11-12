@@ -16,10 +16,15 @@ public interface EnvironmentVariables {
 		int EMAIL_INDX = 6;
 	
 	//Hotel class
-	int HOTEL_INFO_SIZE = 5;
+	int HOTEL_INFO_SIZE = 10;
 		int H_ID_INDX = 0;
 		int H_NAME_INDX = 1;
 		int H_ADDRESS_INDX = 2;
 		int H_ROOMS_INDX = 3;
 		int H_AMENITIES_INDX = 4;
+		int H_INFO_INDX = 5;
+		int H_PERSONS_INDX = 6;
+		int H_RATING_INDX = 7;
+		int H_COST_INDX = 8;
+		int H_FEEDBACKS_INDX = 9;
 }

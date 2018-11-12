@@ -6,15 +6,25 @@ public class Hotel {
 	private String address;
 	private String rooms;
 	private String amenities;
+	private String info;
+	private String persons; // persons per room.
+	private String rating;
+	private String cost;
+	private String noOfFeedbacks;
 	
 	public Hotel() {} //Empty constructor to keep all to null.
 	
-	public Hotel(String id, String name, String address, String rooms, String amenities) {
+	public Hotel(String id, String name, String address, String rooms, String amenities, String info, String persons, String rating, String cost, String feedbacks) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.rooms = rooms;
 		this.amenities = amenities;
+		this.info = info;
+		this.rating = rating;
+		this.persons = persons;
+		this.cost = cost;
+		this.noOfFeedbacks = feedbacks;
 	}
 
 	public String getId() {
@@ -89,6 +99,35 @@ public class Hotel {
 
 	public void setRooms(String rooms) {
 		this.rooms = rooms;
+	}
+	
+	public String getInfo() {
+		String temp = "";
+		for(int i=0;i<info.length();i++) {
+			if(info.charAt(i) == '~') {
+				temp += ',';
+			}
+			else {
+				temp += info.charAt(i);
+			}
+		}
+		return temp;
+	}
+	
+	public String getPersons() {
+		return persons;
+	}
+	
+	public String getRating() {
+		return rating;
+	}
+	
+	public String getCost() {
+		return cost;
+	}
+	
+	public String getFeedbackNo() {
+		return noOfFeedbacks;
 	}
 	
 	public String toDbString() {
