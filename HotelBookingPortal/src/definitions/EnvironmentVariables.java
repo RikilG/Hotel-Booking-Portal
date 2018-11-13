@@ -22,7 +22,7 @@ public interface EnvironmentVariables {
 		int H_ADDRESS_INDX = 2;
 		int H_ROOMS_INDX = 3;
 		int H_AMENITIES_INDX = 4;
-		int H_INFO_INDX = 5;
+		int H_DUPROOMS_INDX = 5;
 		int H_PERSONS_INDX = 6;
 		int H_RATING_INDX = 7;
 		int H_COST_INDX = 8;
