@@ -1,10 +1,8 @@
 package portal;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -23,6 +21,7 @@ import dbManagers.HotelDbManager;
 import definitions.Customer;
 import definitions.Hotel;
 import definitions.HotelCard;
+import definitions.EnvironmentVariables;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,7 +31,6 @@ public class ProfileUI {
 
 	private HotelDbManager hotelDb;
 	private Hotel hotelList[];
-	private String cityName;
 	private Customer user;
 	
 	public JFrame frame;
@@ -73,7 +71,7 @@ public class ProfileUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ProfileUI window = new ProfileUI("chennai",1);
+					ProfileUI window = new ProfileUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,16 +83,16 @@ public class ProfileUI {
 	/**
 	 * Create the application.
 	 */
-	public ProfileUI(String cityName,int ind) {
+	public ProfileUI() {
+		index = EnvironmentVariables.VIEWING;
 		user = portal.Main.logInCustomer;
-		this.cityName = cityName;
-		index=ind;
-		hotelDb = new HotelDbManager(cityName);
-		hotelList = hotelDb.readDB();
+		hotelList = new Hotel[0]; // remove this
 		initialize();
 	}
-	public ProfileUI() {
+	public ProfileUI(int status) {
+		index = status;
 		user = portal.Main.logInCustomer;
+		hotelList = new Hotel[0]; // remove this
 		initialize();
 	}
 
@@ -108,12 +106,18 @@ public class ProfileUI {
 		
 		//frame.setResizable(false);
 		frame.setBounds(100, 100, 900, 570);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		spanel.setLayout(new BoxLayout(spanel, BoxLayout.Y_AXIS));
 		spanel.setBounds(0, 0, frame.getBounds().width, frame.getBounds().height);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 		scrollPane.setBounds(0, 0, frame.getBounds().width, frame.getBounds().height);
 		scrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+		
+		if(index == EnvironmentVariables.BOOKING) {
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+		else {
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		}
 		
 		panel = new JPanel();
 		//scrollPane.setColumnHeaderView(panel);
@@ -140,24 +144,26 @@ public class ProfileUI {
 		panel_3 = new JPanel();
 		panelBottom.add(panel_3);
 		
-		btnBookHotel = new JButton("BOOK A HOTEL");
-		btnBookHotel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							DestinationsUI window = new DestinationsUI();
-							window.frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
+		if(index != EnvironmentVariables.VIEWING) {
+			btnBookHotel = new JButton("BOOK A HOTEL");
+			btnBookHotel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								DestinationsUI window = new DestinationsUI();
+								window.frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
-					}
-				});
-				frame.dispose();
-			}
-		});
-		btnBookHotel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		panel_3.add(btnBookHotel);
+					});
+					frame.dispose();
+				}
+			});
+			btnBookHotel.setFont(new Font("Tahoma", Font.BOLD, 16));
+			panel_3.add(btnBookHotel);
+		}
 		
 		panel_4 = new JPanel();
 		panelBottom.add(panel_4);
@@ -192,10 +198,17 @@ public class ProfileUI {
 		});
 		panelTop.add(btnlogout, BorderLayout.EAST);
 		
-		btnBack = new JButton("Go Back");
-		Image backImage= new ImageIcon(this.getClass().getResource("/back.png")).getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-		btnBack.setIcon(new ImageIcon(backImage));
-		panelTop.add(btnBack, BorderLayout.WEST);
+		if(index != EnvironmentVariables.BOOKING) {
+			btnBack = new JButton("Go Back");
+			Image backImage= new ImageIcon(this.getClass().getResource("/back.png")).getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+			btnBack.setIcon(new ImageIcon(backImage));
+			btnBack.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ae) {
+					frame.dispose();
+				}
+			});
+			panelTop.add(btnBack, BorderLayout.WEST);
+		}
 		
 		lblProfilePage = new JLabel("Profile Page");
 		lblProfilePage.setFont(new Font("Tahoma", Font.BOLD, 19));
@@ -255,7 +268,7 @@ public class ProfileUI {
 		
 		for(Hotel h:hotelList) {
 			spanel.add(new JPanel());
-			spanel.add(new HotelCard(cityName, h,HotelCard.VIEWING));
+			spanel.add(new HotelCard(h,HotelCard.VIEWING));
 		}
 		spanel.add(new JPanel());
 		frame.getContentPane().add(scrollPane);
@@ -267,6 +280,7 @@ public class ProfileUI {
 		if(a==JOptionPane.YES_OPTION)
 		{
 			//go to login page
+			portal.Main.signInStatus = 0;
 			LoginUI objWindow=new LoginUI();
 			objWindow.frame.setVisible(true);
 			frame.dispose();

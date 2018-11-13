@@ -241,7 +241,9 @@ public class DestinationsUI implements ActionListener {
 		ivProfile.setIcon(new ImageIcon(iprofile));
 		ivProfile.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
-				new ProfileUI();
+				//frame.dispose();
+				ProfileUI window = new ProfileUI();
+				window.frame.setVisible(true);
 			}
 		});
 		frame.getContentPane().add(ivProfile);

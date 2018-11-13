@@ -141,14 +141,14 @@ public class LoginUI {
 	}
 	
 	private void btnLoginOnClick() {
-		if(dbio.checkDB(new Customer(tfUsername.getText().toLowerCase(),String.valueOf(tfPassword.getPassword()))) == 1) {
+		if(dbio.checkDB(new Customer(tfUsername.getText().toLowerCase().trim(),String.valueOf(tfPassword.getPassword()))) == 1) {
 			CustomerDbManager dbio = new CustomerDbManager(EnvironmentVariables.USER_DB_NAME);
 			portal.Main.signInStatus = 1;
-			portal.Main.logInCustomer = dbio.getCustomerFromDB(new Customer(tfUsername.getText().toLowerCase(),String.valueOf(tfPassword.getPassword())));
+			portal.Main.logInCustomer = dbio.getCustomerFromDB(new Customer(tfUsername.getText().toLowerCase().trim(),String.valueOf(tfPassword.getPassword())));
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						ProfileUI window = new ProfileUI("chennai",1);
+						ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
 						window.frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();

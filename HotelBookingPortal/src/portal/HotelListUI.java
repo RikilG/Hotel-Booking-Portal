@@ -129,14 +129,16 @@ public class HotelListUI {
 		ivProfile.setIcon(new ImageIcon(iprofile));
 		ivProfile.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
-				
+				//frame.dispose();
+				ProfileUI window = new ProfileUI();
+				window.frame.setVisible(true);
 			}
 		});
 		header.add(ivProfile,BorderLayout.EAST);
 		
 		for(Hotel h:hotelList) {
 			panel.add(new JPanel());
-			panel.add(new HotelCard(cityName, h, HotelCard.BOOKING/*,(HotelListUI)this*/));
+			panel.add(new HotelCard(h, HotelCard.BOOKING/*,(HotelListUI)this*/));
 		}
 		panel.add(new JPanel());
 		frame.getContentPane().add(scrollPane);

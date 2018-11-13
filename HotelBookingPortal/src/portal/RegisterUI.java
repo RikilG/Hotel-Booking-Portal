@@ -15,12 +15,17 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+
+import dbManagers.CustomerDbManager;
+import definitions.Customer;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JPasswordField;
@@ -40,6 +45,7 @@ public class RegisterUI {
 	private JTextField tfEmailId;
 	private JTextField tfVerifyAns;
 	private JTextField txtMobile;
+	private JTextArea taAddress;
 	private final Action action = new SwingAction();
 	private JPasswordField setpasswordField;
 	private JPasswordField confirmpasswordField;
@@ -126,14 +132,13 @@ public class RegisterUI {
 		tfEmailId.setBounds(186, 311, 280, 23);
 		frame.getContentPane().add(tfEmailId);
 		tfEmailId.setColumns(10);
-	
 		
 		JLabel lblResedentialAdress = new JLabel("Residential  Address :\r\n ");
 		lblResedentialAdress.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblResedentialAdress.setBounds(40, 406, 136, 50);
 		frame.getContentPane().add(lblResedentialAdress);
 		
-		JTextArea taAddress = new JTextArea();
+		taAddress = new JTextArea();
 		taAddress.setBounds(186, 403, 280, 53);
 		frame.getContentPane().add(taAddress);
 		
@@ -154,8 +159,6 @@ public class RegisterUI {
 		lblEnterYourPersonal.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblEnterYourPersonal.setBounds(12, 88, 541, 14);
 		frame.getContentPane().add(lblEnterYourPersonal);
-		
-
 		
 		JLabel lblIAmNot = new JLabel("I am not a Robot :");
 		lblIAmNot.setBounds(65, 467, 111, 31);
@@ -207,7 +210,6 @@ public class RegisterUI {
 		chckbxVerify.setBounds(186, 491, 83, 23);
 		frame.getContentPane().add(chckbxVerify);
 		
-		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -216,8 +218,6 @@ public class RegisterUI {
 				
 			}
 		});
-		
-		
 		
 		JLabel lblverify = new JLabel("");
 		lblverify.setHorizontalAlignment(SwingConstants.CENTER);
@@ -244,10 +244,6 @@ public class RegisterUI {
 				}
 			}           
 	      });
-		
-		
-		
-	
 		
 		chckbxAgreeTnC.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -287,7 +283,7 @@ public class RegisterUI {
 		cal.set(cal.get(Calendar.YEAR)-17,cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
 		Date d1=cal.getTime();
 		try {
-		dateChooser.setMaxSelectableDate(d1);
+			dateChooser.setMaxSelectableDate(d1);
 		}
 		catch(Exception e) {
 			
@@ -297,12 +293,12 @@ public class RegisterUI {
 		cal.set(cal.get(Calendar.YEAR)-90,cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
 		Date d2=cal.getTime();
 		try {
-		dateChooser.setMinSelectableDate(d2);
+			dateChooser.setMinSelectableDate(d2);
 		}
 		catch(Exception e) {
-			
+			System.out.println(e);
+			e.getStackTrace();
 		}
-		
 		
 		JLabel lblMobileNumber = new JLabel("Mobile Number         :");
 		lblMobileNumber.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -328,7 +324,6 @@ public class RegisterUI {
 //			lblValidate.setText("password created must contain atleast one uppercase letter,one lowercase letter,one special character and a number and also length of minimum 6 letters");
 //			lblValidate.setForeground(Color.RED);
 //		}
-	
 		
 		JButton btnConfirm = new JButton("Confirm ");
 		btnConfirm.setEnabled(false);
@@ -357,38 +352,46 @@ public class RegisterUI {
 				if(!mtch1.matches()) {
 					JOptionPane.showMessageDialog(null,"name should consist of only alphabets");
 				}
-				String emailPattern = "^[a-zA-Z0-9]{1,20}@[a-zA-Z0-9]{1,7}\\.[a-zA-Z]{2,3}$";
-				//String emailPattern = "\\b[a-zA-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b";
+				String emailPattern = "^[a-zA-Z0-9]{1,20}@[a-zA-Z0-9]{1,20}\\.[a-zA-Z\\-\\.]{2,30}$";
+				//String emailPattern = "\\b[a-zA-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{20}\\b";
 				Pattern pattern = Pattern.compile(emailPattern);
-				Matcher mtch = pattern.matcher(tfEmailId.getText());
-				if(!mtch.matches()) {
+				Matcher mtch4 = pattern.matcher(tfEmailId.getText());
+				if(!mtch4.matches()) {
 					JOptionPane.showMessageDialog(null,"Email format is not correct.\n Email format example: abc@domain.com");
 				}
 				String mobilePattern = "^[0-9]{1}[0-9]{9}$";
 				 pattern = Pattern.compile(mobilePattern);
-				 mtch = pattern.matcher(txtMobile.getText());
-				if(!mtch.matches()) {
+				 Matcher mtch5 = pattern.matcher(txtMobile.getText());
+				if(!mtch5.matches()) {
 					JOptionPane.showMessageDialog(null,"Invalid Mobile Number");
 				}
 				String userName = "^[a-zA-Z0-9!@#%&_]{1,20}$";
 				Pattern pattern2 = Pattern.compile(userName);
 				Matcher mtch2 = pattern2.matcher(tfUsername.getText());
-				if(!mtch.matches()) {
+				if(!mtch2.matches()) {
 					JOptionPane.showMessageDialog(null,"not valid username");
 				}
 				String password = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
 				Pattern pattern3 = Pattern.compile(password);
-				Matcher mtch3 = pattern3.matcher(setpasswordField.getText());
+				Matcher mtch3 = pattern3.matcher(String.valueOf(setpasswordField.getPassword()));
 				if(!mtch3.matches()) {
 					JOptionPane.showMessageDialog(null,"password created must contain atleast one uppercase letter,one lowercase letter,one special character and a number and also length of minimum 6 letters");
 				}
-				String one = setpasswordField.getText();
-				String two = confirmpasswordField.getText();
+				String one = String.valueOf(setpasswordField.getPassword());
+				String two = String.valueOf(confirmpasswordField.getPassword());
 				if(!one.equals(two)) {
 					JOptionPane.showMessageDialog(null,"passwords do not match.\n please enter same passwords");
 				}
-				
-				
+				if(mtch1.matches() && mtch4.matches() && mtch5.matches() && mtch2.matches() && mtch3.matches() && one.equals(two)) {
+					JOptionPane.showMessageDialog(null, "Registered Successfully.\n Login to Continue");
+					CustomerDbManager dbio = new CustomerDbManager();
+					String dob = DateFormat.getDateInstance().format(dateChooser.getDate());
+					Customer c = new Customer("0", tfUsername.getText().toLowerCase().trim(), String.valueOf(setpasswordField.getPassword()), tfName.getText(), dob, taAddress.getText(), tfEmailId.getText(), txtMobile.getText()); //edit this.
+					dbio.writeDB(c);
+					frame.dispose();
+					LoginUI window = new LoginUI();
+					window.frame.setVisible(true);
+				}
 			}
 			
 		});

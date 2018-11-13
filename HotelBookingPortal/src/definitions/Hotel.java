@@ -69,7 +69,7 @@ public class Hotel {
 		this.rooms = rooms;
 	}
 	
-	public String getInfo() {
+	public String getDupRooms() {
 		return dupRooms;
 	}
 	

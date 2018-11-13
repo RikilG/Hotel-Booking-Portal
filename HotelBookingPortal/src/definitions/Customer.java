@@ -9,6 +9,7 @@ public class Customer {
 	private String dob;
 	private String address;
 	private String email;
+	private String mobile;
 	
 	public Customer() {} //Empty Constructor to put all to null.
 	
@@ -18,24 +19,36 @@ public class Customer {
 		address = "";
 	}
 	
-	public Customer(String id, String username, String password, String name, String dob, String address, String email) {
+	public Customer(String id, String username, String password, String name, String dob, String address, String email, String mobile) {
 		this.id = String.valueOf(id);
 		this.username = username.toLowerCase();
 		this.password = password;
 		this.name = name;
-		this.dob = dob;
+		this.dob = "";
+		for(int i=0;i<dob.length();i++) {
+			if(dob.charAt(i) == ',') {
+				this.dob += " /";
+			}
+			else {
+				this.dob += dob.charAt(i);
+			}
+		}
 		//this.address = address; address might contain ',' delimiter which alters data storage in csv file
 		this.email = email;
-		
-		this.address = "";
+		this.mobile = mobile;
+		this.address = "<html>";
 		for(int i=0;i<address.length();i++) {
 			if(address.charAt(i) == ',') {
 				this.address += '~';
+			}
+			else if(address.charAt(i) == '\n') {
+				this.address += "<br>";
 			}
 			else {
 				this.address += address.charAt(i);
 			}
 		}
+		this.address += "</html>";
 	}
 
 	public String getId() {
@@ -111,9 +124,17 @@ public class Customer {
 		this.password = password;
 	}
 	
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
 	public String toDbString() {
 		String temp = String.valueOf(id) + "," + username + "," + password + "," + name + "," + dob + ","
-				 + address + "," + email;
+				 + address + "," + email + "," + mobile;
 		return temp;
 	}
 	

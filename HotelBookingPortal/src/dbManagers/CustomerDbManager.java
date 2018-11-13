@@ -59,7 +59,7 @@ public class CustomerDbManager implements EnvironmentVariables{
 			while((temp=br.readLine())!=null) {
 				String userInfo[] = temp.split(",");
 				if(userInfo.length==USER_INFO_SIZE && userInfo[USERNAME_INDX].equals(customer.getUsername()) && userInfo[PASSWORD_INDX].equals(customer.getPassword())) {
-					return new Customer(userInfo[ID_INDX],userInfo[USERNAME_INDX],userInfo[PASSWORD_INDX],userInfo[NAME_INDX],userInfo[DOB_INDX],userInfo[ADDRESS_INDX],userInfo[EMAIL_INDX]);
+					return new Customer(userInfo[ID_INDX],userInfo[USERNAME_INDX],userInfo[PASSWORD_INDX],userInfo[NAME_INDX],userInfo[DOB_INDX],userInfo[ADDRESS_INDX],userInfo[EMAIL_INDX],userInfo[MOBILE_INDX]);
 				}
 			}
 		}
@@ -84,7 +84,7 @@ public class CustomerDbManager implements EnvironmentVariables{
 			while((temp=br.readLine())!=null) {
 				String userInfo[] = temp.split(",");
 				if(userInfo.length==USER_INFO_SIZE) {
-					customers.add(new Customer(userInfo[ID_INDX],userInfo[USERNAME_INDX],userInfo[PASSWORD_INDX],userInfo[NAME_INDX],userInfo[DOB_INDX],userInfo[ADDRESS_INDX],userInfo[EMAIL_INDX]));
+					customers.add(new Customer(userInfo[ID_INDX],userInfo[USERNAME_INDX],userInfo[PASSWORD_INDX],userInfo[NAME_INDX],userInfo[DOB_INDX],userInfo[ADDRESS_INDX],userInfo[EMAIL_INDX],userInfo[MOBILE_INDX]));
 				}
 			}
 		}catch(FileNotFoundException fnfe) {
@@ -98,7 +98,24 @@ public class CustomerDbManager implements EnvironmentVariables{
 	}
 	
 	public int writeDB(Customer customer) {
-		
+		String temp;
+		int lastId = 0;
+		try(BufferedReader br = new BufferedReader(new FileReader(dbFile))) {
+			if(!dbFile.exists()) {
+				throw new FileNotFoundException();
+			}
+			while((temp=br.readLine())!=null) {
+				String userInfo[] = temp.split(",");
+				if(userInfo.length==USER_INFO_SIZE) {
+					lastId = Integer.parseInt(userInfo[ID_INDX]);
+				}
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		lastId += 1;
+		customer.setId(String.valueOf(lastId));
 		try(BufferedWriter bw = new BufferedWriter(new FileWriter(dbFile,true))){
 			if(!dbFile.exists()) {
 				bw.append(DB_HEADER);
@@ -107,7 +124,7 @@ public class CustomerDbManager implements EnvironmentVariables{
 			bw.newLine();
 			return 1;
 		}
-		catch (IOException e){
+		catch (Exception e){
 			System.out.println(e);
 			e.printStackTrace();
 			return -1;
