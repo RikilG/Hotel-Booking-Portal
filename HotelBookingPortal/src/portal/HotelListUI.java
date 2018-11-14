@@ -48,7 +48,7 @@ public class HotelListUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HotelListUI window = new HotelListUI("chennai");
+					HotelListUI window = new HotelListUI("hyderabad");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

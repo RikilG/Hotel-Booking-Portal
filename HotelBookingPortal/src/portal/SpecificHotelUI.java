@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import definitions.Hotel;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -24,6 +25,8 @@ import java.awt.Image;
 
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 
@@ -68,6 +71,11 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		header.setLayout(new BorderLayout(0, 0));
 		getContentPane().add(header, BorderLayout.NORTH);
 		
+		JPanel pnlContent = new JPanel();
+		pnlContent.setBounds(10, 63, 760, 477);
+		getContentPane().add(pnlContent);
+		pnlContent.setLayout(new BorderLayout(0, 0));
+		
 		JLabel lblNewLabel = new JLabel("Hotel Info");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -104,77 +112,95 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		});
 		header.add(ivProfile,BorderLayout.EAST);
 		
-		JPanel scrollPane = new JPanel();
-		scrollPane.setLayout(null);
-		scrollPane.setBounds(55, 111, 654, 189);
+		JPanel ivPane = new JPanel();
+		ivPane.setLayout(null);
+		ivPane.setSize(new Dimension(250,pnlContent.getHeight()));
+		ivPane.setPreferredSize(new Dimension(250,pnlContent.getHeight()));
+		ivPane.setMaximumSize(new Dimension(250,pnlContent.getHeight()));
 		JLabel ivHotel = new JLabel();
 		ivHotel.setHorizontalAlignment(SwingConstants.CENTER);
-		ivHotel.setBounds(scrollPane.getWidth()*2/10,0,scrollPane.getWidth()*3/5,scrollPane.getHeight());
-		Image ihotel = new ImageIcon(this.getClass().getResource("/HotelsDB/"+hotel.getId()+".jpg")).getImage().getScaledInstance(scrollPane.getWidth(), scrollPane.getHeight(), Image.SCALE_SMOOTH);
+		ivHotel.setBounds(0,50,250,300);
+		Image ihotel = new ImageIcon(this.getClass().getResource("/HotelsDB/"+hotel.getId()+".jpg")).getImage().getScaledInstance(ivHotel.getWidth(), ivHotel.getHeight(), Image.SCALE_SMOOTH);
 		ivHotel.setIcon(new ImageIcon(ihotel));
-		scrollPane.add(ivHotel);
-		getContentPane().add(scrollPane);
+		ivPane.add(ivHotel);
+		pnlContent.add(ivPane,BorderLayout.WEST);
+		
+		JPanel pnlHotelTitle = new JPanel();
+		pnlContent.add(pnlHotelTitle, BorderLayout.NORTH);
 		
 		JLabel lblHotel = new JLabel("ABC  Hotel");
+		pnlHotelTitle.add(lblHotel);
 		lblHotel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHotel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblHotel.setBounds(27, 62, 159, 28);
+		lblHotel.setPreferredSize(new Dimension(pnlContent.getWidth(),20));
+		lblHotel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblHotel.setText(hotel.getName());
-		getContentPane().add(lblHotel);
 		
-		if(viewStatus == BOOKING) {
-			JButton btnBookNow = new JButton("BOOK NOW!!");
-			btnBookNow.setForeground(Color.BLUE);
-			btnBookNow.setFont(new Font("Tahoma", Font.BOLD, 12));
-			btnBookNow.setBounds(549, 493, 135, 23);
-			getContentPane().add(btnBookNow);
-		}
+		JPanel pnlAmenities = new JPanel();
+		pnlContent.add(pnlAmenities, BorderLayout.CENTER);
+		pnlAmenities.setLayout(null);
 		
-		JLabel lblHoursWater = new JLabel("24 hours water supply");
-		lblHoursWater.setBounds(223, 363, 200, 14);
-		getContentPane().add(lblHoursWater);
+		JLabel lblHotelAmenities = new JLabel("24 hours water supply");
+		lblHotelAmenities.setVerticalAlignment(SwingConstants.TOP);
+		lblHotelAmenities.setLocation(10, 10);
+		lblHotelAmenities.setSize(350, 390);
+		pnlAmenities.add(lblHotelAmenities);
+		lblHotelAmenities.setText(hotel.getAmenitiesList());
 		
-		JLabel lblSwimmingPool = new JLabel("swimming pool");
-		lblSwimmingPool.setBounds(223, 393, 189, 14);
-		getContentPane().add(lblSwimmingPool);
+		JPanel pnlReviews = new JPanel();
+		pnlContent.add(pnlReviews, BorderLayout.EAST);
+		pnlReviews.setLayout(new BoxLayout(pnlReviews, BoxLayout.Y_AXIS));
 		
-		JLabel lblSpaAndGarden = new JLabel("spa and garden");
-		lblSpaAndGarden.setBounds(223, 423, 200, 14);
-		getContentPane().add(lblSpaAndGarden);
+		JPanel pnlRating = new JPanel();
+		pnlRating.setLayout(new BoxLayout(pnlRating, BoxLayout.Y_AXIS));
+		pnlReviews.add(pnlRating);
 		
-		JLabel lblRoomServicesAnd = new JLabel("room services and room deliveries");
-		lblRoomServicesAnd.setBounds(223, 453, 200, 14);
-		getContentPane().add(lblRoomServicesAnd);
-		
-		JLabel lblOverallRatings = new JLabel("Overall Rating  :");
+		JLabel lblOverallRatings = new JLabel("Overall Rating ");
+		lblOverallRatings.setFont(new Font("Tahoma", Font.BOLD, 13));
+		pnlRating.add(lblOverallRatings);
 		lblOverallRatings.setBounds(527, 393, 100, 14);
-		getContentPane().add(lblOverallRatings);
 		
-		JLabel label_4 = new JLabel("4.0");
-		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		label_4.setBounds(627, 393, 46, 14);
-		label_4.setText(hotel.getRating());
-		getContentPane().add(label_4);
+		JLabel lblRatingsNo = new JLabel("4.0");
+		pnlRating.add(lblRatingsNo);
+		lblRatingsNo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRatingsNo.setBounds(627, 393, 46, 14);
+		lblRatingsNo.setText(hotel.getRating());
 		
-		JLabel lblFeedbacks = new JLabel("No of Feedbacks :");
+		JPanel emptyPanel = new JPanel();
+		pnlReviews.add(emptyPanel);
+		
+		JPanel pnlFeedbacks = new JPanel();
+		pnlFeedbacks.setLayout(new BoxLayout(pnlFeedbacks, BoxLayout.Y_AXIS));
+		pnlReviews.add(pnlFeedbacks);
+		
+		JLabel lblFeedbacks = new JLabel("No of Feedbacks    ");
+		lblFeedbacks.setFont(new Font("Tahoma", Font.BOLD, 13));
+		pnlFeedbacks.add(lblFeedbacks);
 		lblFeedbacks.setBounds(527, 422, 111, 16);
-		getContentPane().add(lblFeedbacks);
 		
 		JLabel lblFeedbackNo = new JLabel("50");
+		pnlFeedbacks.add(lblFeedbackNo);
 		lblFeedbackNo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFeedbackNo.setBounds(637, 422, 36, 16);
 		lblFeedbackNo.setText(hotel.getFeedbackNo());
-		getContentPane().add(lblFeedbackNo);
 		
-		btnStandardRoom = new JButton("Book Standard");
-		btnStandardRoom.setBounds(442, 335, 130, 30);
-		btnStandardRoom.addActionListener(this);
-		getContentPane().add(btnStandardRoom);
+		JPanel emptyPanel2 = new JPanel();
+		pnlReviews.add(emptyPanel2);
 		
-		btnDeluxeRoom = new JButton("Book Deluxe");
-		btnDeluxeRoom.setBounds(583, 335, 130, 30);
-		btnDeluxeRoom.addActionListener(this);
-		getContentPane().add(btnDeluxeRoom);
+		JPanel emptyPanel3 = new JPanel();
+		pnlReviews.add(emptyPanel3);
+		
+		JPanel pnlButtons = new JPanel();
+		pnlContent.add(pnlButtons, BorderLayout.SOUTH);
+		
+		//if(viewStatus == BOOKING) {
+			btnStandardRoom = new JButton("Book Standard");
+			pnlButtons.add(btnStandardRoom);
+			
+			btnDeluxeRoom = new JButton("Book Deluxe");
+			pnlButtons.add(btnDeluxeRoom);
+			btnDeluxeRoom.addActionListener(this);
+			btnStandardRoom.addActionListener(this);
+		//}
 		
 	}
 	

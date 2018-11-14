@@ -60,6 +60,20 @@ public class Hotel {
 		}
 		return temp;
 	}
+	
+	public String getAmenitiesList() {
+		StringBuffer temp = new StringBuffer("<html>&bull; ");
+		for(int i=0;i<amenities.length();i++) {
+			if(amenities.charAt(i) == '~') {
+				temp.append("<br>&bull; ");
+			}
+			else {
+				temp.append(amenities.charAt(i));
+			}
+		}
+		temp.append("</html>");
+		return temp.toString();
+	}
 
 	public String getRooms() {
 		return rooms;
