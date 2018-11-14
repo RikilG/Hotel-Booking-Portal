@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -174,7 +175,7 @@ public class ProfileUI {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_4.add(lblNewLabel_2);
 		
-		lblNewLabel_1 = new JLabel("aaaaaaaaaaaaaaaaaaaaaaaaa");
+		lblNewLabel_1 = new JLabel("aaaaaaaaaaaaaaaaaaaaaa");
 		lblNewLabel_1.setVisible(false);
 		panelRight.add(lblNewLabel_1);
 		
@@ -281,9 +282,12 @@ public class ProfileUI {
 		{
 			//go to login page
 			portal.Main.signInStatus = 0;
+			Frame openWindows[] = Frame.getFrames();
+			for(Frame f : openWindows) {
+				f.dispose();
+			}
 			LoginUI objWindow=new LoginUI();
 			objWindow.frame.setVisible(true);
-			frame.dispose();
 		}
 	
 	}

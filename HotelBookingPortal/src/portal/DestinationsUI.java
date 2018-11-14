@@ -37,6 +37,7 @@ public class DestinationsUI implements ActionListener {
 	private JTextField textField_1;
 	private JDateChooser dateChooser_1;
 	private String city="";
+	private UserRequirements ur;
 	JLabel lblNewLabel_4 = new JLabel();
 	private JDateChooser dateChooser ;
 	private JLabel ivProfile;
@@ -290,14 +291,15 @@ public class DestinationsUI implements ActionListener {
 						EventQueue.invokeLater(new Runnable() {
 							public void run() {
 								try {
-									HotelListUI window = new HotelListUI(new UserRequirements(city,dateChooser.getDate().getTime(),
-											dateChooser_1.getDate().getTime(),room,person));
+									ur = new UserRequirements(city,dateChooser.getDate().getTime(),dateChooser_1.getDate().getTime(),room,person);
+									HotelListUI window = new HotelListUI(ur);
 									window.frame.setVisible(true);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
 						});
+						portal.Main.userRequirements = ur;
 						frame.dispose();
 					}
 				}

@@ -10,9 +10,14 @@ import definitions.Hotel;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -22,12 +27,15 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 
-public class SpecificHotelUI extends JFrame {
+public class SpecificHotelUI extends JFrame implements ActionListener {
 	
 	final static int BOOKING = 1;
 	final static int VIEWING = 0;
 
 	Hotel hotel;
+	
+	JButton btnStandardRoom;
+	JButton btnDeluxeRoom;
 	/**
 	 * Launch the application.
 	 */
@@ -138,19 +146,6 @@ public class SpecificHotelUI extends JFrame {
 		lblRoomServicesAnd.setBounds(223, 453, 200, 14);
 		getContentPane().add(lblRoomServicesAnd);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
-		
-		
-		getContentPane().add(rdbtnNewRadioButton);
-		
-		JToggleButton tglbtnStandardRoom = new JToggleButton("Standard");
-		tglbtnStandardRoom.setBounds(452, 335, 121, 23);
-		getContentPane().add(tglbtnStandardRoom);
-		
-		JToggleButton tglbtnDeluxeRoom = new JToggleButton("Deluxe");
-		tglbtnDeluxeRoom.setBounds(583, 335, 121, 23);
-		getContentPane().add(tglbtnDeluxeRoom);
-		
 		JLabel lblOverallRatings = new JLabel("Overall Rating  :");
 		lblOverallRatings.setBounds(527, 393, 100, 14);
 		getContentPane().add(lblOverallRatings);
@@ -171,8 +166,27 @@ public class SpecificHotelUI extends JFrame {
 		lblFeedbackNo.setText(hotel.getFeedbackNo());
 		getContentPane().add(lblFeedbackNo);
 		
+		btnStandardRoom = new JButton("Book Standard");
+		btnStandardRoom.setBounds(442, 335, 130, 30);
+		btnStandardRoom.addActionListener(this);
+		getContentPane().add(btnStandardRoom);
+		
+		btnDeluxeRoom = new JButton("Book Deluxe");
+		btnDeluxeRoom.setBounds(583, 335, 130, 30);
+		btnDeluxeRoom.addActionListener(this);
+		getContentPane().add(btnDeluxeRoom);
+		
+	}
 	
-		
-		
+	public void actionPerformed(ActionEvent ae) {
+		int result;
+		if(btnStandardRoom.isFocusOwner()) {
+			result = JOptionPane.showConfirmDialog(null, "Do You Want to Book a Standard room in this hotel?");
+			//call HotelBookingUI with this.
+		}
+		else if(btnDeluxeRoom.isFocusOwner()) {
+			result = JOptionPane.showConfirmDialog(null, "Do You Want to Book a Deluxe room in this hotel?");
+			//call HotelBookingUI with this.
+		}
 	}
 }

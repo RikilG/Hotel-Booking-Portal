@@ -170,19 +170,6 @@ public class HotelCard extends JPanel {
 		//caller.frame.dispose();
 	}
 	
-	private void openHotelBookPage() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HotelBookingUI window = new HotelBookingUI(hotel);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	private void bookingCancel() {
 		int ans = JOptionPane.showConfirmDialog(null,"Do you really want to cancel this booking?");
 		if(ans == JOptionPane.YES_OPTION) {
@@ -192,4 +179,17 @@ public class HotelCard extends JPanel {
 			
 		}
 	}
+	
+//	private void openHotelBookPage() {
+//	EventQueue.invokeLater(new Runnable() {
+//		public void run() {
+//			try {
+//				HotelBookingUI window = new HotelBookingUI(hotel);
+//				window.frame.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	});
+//}
 }

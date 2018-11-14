@@ -8,6 +8,7 @@ public class Main {
 	
 	public static int signInStatus;
 	public static Customer logInCustomer;
+	public static UserRequirements userRequirements;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
