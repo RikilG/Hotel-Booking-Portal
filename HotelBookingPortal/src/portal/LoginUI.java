@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import java.awt.Color;
 
 public class LoginUI {
 	
@@ -57,6 +58,7 @@ public class LoginUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(204, 204, 51));
 		frame.setBounds(100, 100, 900, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -68,6 +70,7 @@ public class LoginUI {
 		frame.getContentPane().add(lblTitle);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(153, 204, 153));
 		panel.setBounds(12, 94, 858, 416);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);

@@ -78,6 +78,7 @@ public class RegisterUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(255, 102, 0));
 		frame.getContentPane().setForeground(new Color(0, 0, 0));
 		frame.setBounds(100, 100, 600, 640);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,7 +171,7 @@ public class RegisterUI {
 		tfVerifyAns.setColumns(10);
 		
 		JCheckBox chckbxAgreeTnC = new JCheckBox("I agree to the Terms and conditions of using this software.");
-		chckbxAgreeTnC.setForeground(Color.GREEN);
+		chckbxAgreeTnC.setForeground(new Color(102, 0, 0));
 		chckbxAgreeTnC.setBounds(106, 517, 373, 25);
 		frame.getContentPane().add(chckbxAgreeTnC);
 		

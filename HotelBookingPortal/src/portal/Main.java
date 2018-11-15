@@ -18,8 +18,8 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginUI window = new LoginUI();
-					window.frame.setVisible(true);
+					Entrance window = new Entrance();
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -26,6 +26,7 @@ import dbManagers.BookingDbManager;
 import dbManagers.HotelDbManager;
 import portal.HotelBookingUI;
 import portal.HotelListUI;
+import portal.ModifyHotelUI;
 import portal.ProfileUI;
 import portal.SpecificHotelUI;
 
@@ -321,15 +322,16 @@ public class HotelCard extends JPanel {
 				// delete and add corresponding hotel for this user (portal.Main.LogInUser)
 				BookingDbManager bdb = new BookingDbManager(req);
 				bdb.cancelRoom();
-				//call edit options frame here.
-				bdb = new BookingDbManager(req);
-				bdb.bookRoom();
-				Frame openWindows[] = Frame.getFrames();
-				for(Frame f : openWindows) {
-					f.dispose();
-				}
-				ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
-				window.frame.setVisible(true);
+				ModifyHotelUI frame = new ModifyHotelUI(req);
+				frame.setVisible(true);
+//				bdb = new BookingDbManager(portal.Main.userRequirements);
+//				bdb.bookRoom();
+//				Frame openWindows[] = Frame.getFrames();
+//				for(Frame f : openWindows) {
+//					f.dispose();
+//				}
+//				ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
+//				window.frame.setVisible(true);
 			}
 		}
 		else {

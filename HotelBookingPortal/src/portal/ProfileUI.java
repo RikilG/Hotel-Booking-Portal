@@ -30,6 +30,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.Color;
 
 public class ProfileUI {
 
@@ -107,6 +108,7 @@ public class ProfileUI {
 		
 		frame = new JFrame();
 		spanel = new JPanel();
+		spanel.setBackground(new Color(204, 153, 0));
 		scrollPane = new JScrollPane(spanel);
 		
 		//frame.setResizable(false);
@@ -125,6 +127,7 @@ public class ProfileUI {
 		}
 		
 		panel = new JPanel();
+		panel.setBackground(new Color(204, 153, 51));
 		//scrollPane.setColumnHeaderView(panel);
 		
 		//panel.setBounds(0,0,frame.getBounds().width-16,500);
@@ -136,10 +139,12 @@ public class ProfileUI {
 		spanel.add(panel);
 		
 		panelLeft = new JPanel();
+		panelLeft.setBackground(new Color(153, 102, 51));
 		panel.add(panelLeft, BorderLayout.WEST);
 		panelLeft.setLayout(new BorderLayout(0, 0));
 		
 		panelRight= new JPanel();
+		panelRight.setBackground(new Color(153, 102, 51));
 		panel.add(panelRight,BorderLayout.EAST);
 		
 		panelBottom= new JPanel();
@@ -147,6 +152,7 @@ public class ProfileUI {
 		panelBottom.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		panel_3 = new JPanel();
+		panel_3.setBackground(new Color(204, 153, 0));
 		panelBottom.add(panel_3);
 		
 		if(index != EnvironmentVariables.VIEWING) {
@@ -171,10 +177,12 @@ public class ProfileUI {
 		}
 		
 		panel_4 = new JPanel();
+		panel_4.setBackground(new Color(204, 102, 51));
 		panelBottom.add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 		
 		lblNewLabel_2 = new JLabel("Booked Hotels");
+		lblNewLabel_2.setBackground(new Color(204, 102, 51));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_4.add(lblNewLabel_2);
@@ -184,12 +192,14 @@ public class ProfileUI {
 		panelRight.add(lblNewLabel_1);
 		
 		Lblprofilepic = new JLabel("");
+		Lblprofilepic.setBackground(new Color(204, 102, 51));
 		panelLeft.add(Lblprofilepic, BorderLayout.CENTER);
 		Lblprofilepic.setHorizontalAlignment(SwingConstants.CENTER);
 		Image profilemanpic=new ImageIcon(this.getClass().getResource("/profileman4.png")).getImage();
 		Lblprofilepic.setIcon(new ImageIcon(profilemanpic));
 		
 		panelTop = new JPanel();
+		panelTop.setBackground(new Color(102, 204, 204));
 		panel.add(panelTop, BorderLayout.NORTH);
 		panelTop.setLayout(new BorderLayout(0, 0));
 		
@@ -221,10 +231,12 @@ public class ProfileUI {
 		panelTop.add(lblProfilePage, BorderLayout.CENTER);
 		
 		panelCenter = new JPanel();
+		panelCenter.setBackground(new Color(102, 204, 255));
 		panel.add(panelCenter, BorderLayout.CENTER);
 		panelCenter.setLayout(new BorderLayout(0, 0));
 		
 		panel_1 = new JPanel();
+		panel_1.setBackground(new Color(153, 102, 102));
 		panelCenter.add(panel_1, BorderLayout.NORTH);
 		
 //		if(index!=1)
@@ -240,6 +252,7 @@ public class ProfileUI {
 		panel_1.add(lblNewLabel);
 		
 		panel_2 = new JPanel();
+		panel_2.setBackground(new Color(153, 204, 255));
 		panelCenter.add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(new GridLayout(4,2,10,15));
 		
@@ -277,7 +290,9 @@ public class ProfileUI {
 				spanel.add(new HotelCard(h.getHotel(),HotelCard.VIEWING,h));
 			}
 		}
-		spanel.add(new JPanel());
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(new Color(204, 102, 0));
+		spanel.add(panel_5);
 		frame.getContentPane().add(scrollPane);
 	}
 	

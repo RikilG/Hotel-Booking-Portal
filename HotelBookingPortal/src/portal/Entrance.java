@@ -13,6 +13,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Entrance extends JFrame {
 
@@ -45,22 +49,49 @@ public class Entrance extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 54, 574, 26);
+		contentPane.add(panel);
+		
 		JLabel lblWelcomeToBirla = new JLabel("Welcome to BIRLA ONLINE HOTEL BOOKING PORTAL");
+		panel.add(lblWelcomeToBirla);
 		lblWelcomeToBirla.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeToBirla.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblWelcomeToBirla.setForeground(Color.BLUE);
-		lblWelcomeToBirla.setBounds(10, 80, 522, 26);
-		contentPane.add(lblWelcomeToBirla);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 0, 574, 26);
-		contentPane.add(panel);
 		
 		JTextPane txtpnWelcomeToAn = new JTextPane();
-		String str = "";
-		txtpnWelcomeToAn.setText("Welcome to modern era hotel booking portal which makes life easy.\n"+ str);
+		txtpnWelcomeToAn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		String str = "*Find Best Hotels of your choice that we provide";
+		String str1 = "*Hotel Booking is completely free";
+		String str2 = "*Terms and Conditions apply";
+		txtpnWelcomeToAn.setEditable(false);
+		
+		JButton btnBookAHotel = new JButton("Book a Hotel");
+		btnBookAHotel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							LoginUI window = new LoginUI();
+							window.frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		btnBookAHotel.setBounds(200, 299, 158, 23);
+		contentPane.add(btnBookAHotel);
+		txtpnWelcomeToAn.setText("*Welcome to modern era Online hotel booking portal which makes life easy\n"+ str+"\n"+str1+"\n"+str2);
 	
-		txtpnWelcomeToAn.setBounds(31, 142, 244, 120);
+		txtpnWelcomeToAn.setBounds(63, 114, 442, 91);
 		contentPane.add(txtpnWelcomeToAn);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Entrance.class.getResource("/hotelsDB/4.jpg")));
+		lblNewLabel.setBounds(10, 91, 564, 459);
+		contentPane.add(lblNewLabel);
 	}
 }
