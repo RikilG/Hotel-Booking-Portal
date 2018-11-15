@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -23,6 +24,7 @@ import portal.SpecificHotelUI;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import java.awt.FlowLayout;
 
 public class HotelCard extends JPanel {
 	
@@ -44,6 +46,11 @@ public class HotelCard extends JPanel {
 	private JLabel lblHotelcontent;
 	private JLabel lblHotelname;
 	private JButton btnViewHotel;
+	private JPanel pnlCost;
+	private JPanel pnlCostNo;
+	private JLabel lblHotelCost;
+	private JLabel lblHotelCostNo;
+	private JLabel lblPerNight;
 
 	/**
 	 * @wbp.parser.constructor 
@@ -120,9 +127,38 @@ public class HotelCard extends JPanel {
 		
 		lblHotelcontent = new JLabel("<html>"+hotel.getAmenities()+"</html>");
 		lblHotelcontent.setVerticalAlignment(SwingConstants.TOP);
-		lblHotelcontent.setBounds(5, 40, rightPanel.getSize().width-10, rightPanel.getSize().height - lblHotelname.getSize().height - padding/2 - 4);
+		lblHotelcontent.setBounds(5, 40, rightPanel.getSize().width-150, rightPanel.getSize().height - lblHotelname.getSize().height - padding/2 - 4);
 		lblHotelcontent.setMaximumSize(new Dimension(rightPanel.getSize().width, rightPanel.getSize().height - lblHotelname.getSize().height - padding/2));
 		rightPanel.add(lblHotelcontent);
+		
+		JPanel pnlHotelCost = new JPanel();
+		pnlHotelCost.setBounds(5+rightPanel.getWidth()-150, 40, 150-10, rightPanel.getSize().height - lblHotelname.getSize().height - padding/2 - 4);
+		pnlHotelCost.setLayout(new BoxLayout(pnlHotelCost, BoxLayout.Y_AXIS));
+		rightPanel.add(pnlHotelCost);
+		
+		pnlCost = new JPanel();
+		pnlHotelCost.add(pnlCost);
+		pnlCost.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblHotelCost = new JLabel("Price ");
+		lblHotelCost.setForeground(new Color(204, 0, 0));
+		lblHotelCost.setFont(new Font("Tahoma", Font.BOLD, 20));
+		pnlCost.add(lblHotelCost);
+		
+		lblPerNight = new JLabel("/Night");
+		lblPerNight.setFont(new Font("Tahoma", Font.ITALIC, 14));
+		lblPerNight.setForeground(new Color(204, 0, 0));
+		pnlCost.add(lblPerNight);
+		
+		pnlCostNo = new JPanel();
+		pnlHotelCost.add(pnlCostNo);
+		pnlCostNo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblHotelCostNo = new JLabel("CostNo");
+		lblHotelCostNo.setForeground(new Color(51, 204, 0));
+		lblHotelCostNo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
+		lblHotelCostNo.setText("\u20B9 " + hotel.getCost() + " ");
+		pnlCostNo.add(lblHotelCostNo);
 		
 		if(bookingStatus == BOOKING) {
 			btnViewHotel = new JButton("View Deal");
