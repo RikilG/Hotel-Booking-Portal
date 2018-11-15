@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import definitions.EnvironmentVariables;
 import definitions.Hotel;
 import definitions.UserRequirements;
 
@@ -169,7 +170,7 @@ public class HotelBookingUI {
 				BookingDbManager bdb = new BookingDbManager(req);
 				bdb.bookRoom();
 				frame.dispose();
-				ProfileUI window = new ProfileUI();
+				ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
 				window.frame.setVisible(true);
 			}
 		});
