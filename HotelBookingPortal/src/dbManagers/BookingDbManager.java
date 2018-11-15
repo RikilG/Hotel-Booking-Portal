@@ -22,7 +22,6 @@ public class BookingDbManager {
 	    System.out.println(b1.getRooms());
 	}*/
   UserRequirements ur;
-  String roomtype;
   int totalrooms;
   BookingDbManager(UserRequirements ur,int totalrooms){
 	  this.ur=ur;
@@ -56,7 +55,7 @@ public class BookingDbManager {
    }
   public void bookRoom() {
 	  try(BufferedWriter bw=new BufferedWriter(new FileWriter(bkng,true))){
-		  bw.append(ur.getHotelid()+","+ur.getUserid()+","+roomtype+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms());
+		  bw.append(ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms());
 		  bw.newLine();
 	  }
 	  catch(Exception e) {
@@ -75,7 +74,7 @@ public class BookingDbManager {
 		  a=bookings.size();
 		  System.out.println(a);
 		  while(a!=0) {
-			  if(!(bookings.get(a-1).equals((ur.getHotelid()+","+ur.getUserid()+","+roomtype+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()))))
+			  if(!(bookings.get(a-1).equals((ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()))))
 			  { bw.append(bookings.get(a-1));
 			  bw.newLine();
 			  }
