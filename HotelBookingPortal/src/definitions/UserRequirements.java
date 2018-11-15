@@ -11,6 +11,7 @@ public class UserRequirements {
  private int rooms;
  private int persons;
  private Hotel hotel;
+ private long refId;
  public UserRequirements(String city,long check_in,long  check_out,int rooms,int persons){
 	 this.city=city;
 	 this.checkin=check_in;
@@ -45,6 +46,7 @@ public class UserRequirements {
 	 rooms = Integer.parseInt(details[5]);
 	 city = details[6];
 	 this.hotel = hotel;
+	 this.refId = Integer.parseInt(details[7]);
  }
 public String getHotelid() {
 	return hotelid;
@@ -100,6 +102,12 @@ public Hotel getHotel() {
 public void setHotel(Hotel hotel) {
 	this.hotel = hotel;
 	this.hotelid = hotel.getId();
+}
+public long getRefId() {
+	return refId;
+}
+public void setRefId(long refId) {
+	this.refId = refId;
 }
  
 }

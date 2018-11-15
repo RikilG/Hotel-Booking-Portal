@@ -270,7 +270,7 @@ public class RegisterUI {
 //		d1.setMonth(11);
 //		d1.setYear(1909);
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd/mm/yyyy");
+		dateChooser.setDateFormatString("d MMM yyyy");
 		dateChooser.setForeground(Color.BLACK);
 		dateChooser.setToolTipText("");
 		dateChooser.setBounds(186, 161, 280, 20);

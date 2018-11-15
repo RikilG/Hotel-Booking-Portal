@@ -136,15 +136,16 @@ public class HotelCard extends JPanel {
 		lblHotelname.setFont(new Font("Dialog", Font.BOLD, 20));
 		
 		lblHotelcontent = new JLabel();
-		lblHotelcontent.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblHotelcontent.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		if(bookingStatus == EnvironmentVariables.VIEWING) {
 			Date checkin = new Date(req.getCheckin());
 			Date checkout = new Date(req.getCheckout());
-			Format format = new SimpleDateFormat("yyyy MM dd ");
+			Format format = new SimpleDateFormat("yyyy/MM/dd ");
 			String temp = "<html><br>";
 			temp += " City : " + req.getCity() + "<br>";
 			temp += " Check in Date : " + format.format(checkin) + "<br>";
 			temp += " Check out Date : " + format.format(checkout) + "<br>";
+			temp += " Booking Reference No : " + req.getRefId() + "<br>";
 			temp+="</html>";
 			lblHotelcontent.setText(temp);
 		}

@@ -73,7 +73,7 @@ public class BookingDbManager {
    }
   public void bookRoom() {
 	  try(BufferedWriter bw=new BufferedWriter(new FileWriter(bkng,true))){
-		  bw.append(ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()+","+ur.getCity());
+		  bw.append(ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()+","+ur.getCity()+","+ur.getRefId());
 		  bw.newLine();
 	  }
 	  catch(Exception e) {
@@ -92,7 +92,7 @@ public class BookingDbManager {
 		  a=bookings.size();
 		  //System.out.println(a);
 		  while(a!=0) {
-			  if(!(bookings.get(a-1).equals((ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()+","+ur.getCity()))))
+			  if(!(bookings.get(a-1).equals((ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()+","+ur.getCity()+","+ur.getRefId()))))
 			  { bw.append(bookings.get(a-1));
 			    bw.newLine();
 			  }

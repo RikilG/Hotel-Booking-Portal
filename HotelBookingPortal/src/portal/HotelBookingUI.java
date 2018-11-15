@@ -176,23 +176,29 @@ public class HotelBookingUI {
 		JButton btnBookNow = new JButton("Book Now");
 		btnBookNow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String s = "ABCDE1234F"; // get your editext value here
-				Pattern pattern = Pattern.compile("^[A-Z]{5}[0-9]{4}[A-Z]{1}$");
-				Matcher matcher = pattern.matcher(s);
-				if (matcher.matches()) {
-					JOptionPane.showMessageDialog(null,"Invalid Pan Card Number");
+				if(rdbtnPanCard.isSelected()) {
+					String s = txtVerificationno.getText().trim(); // get your editext value here
+					Pattern pattern = Pattern.compile("^[A-Z]{5}[0-9]{4}[A-Z]{1}$");
+					Matcher matcher = pattern.matcher(s);
+					if (!matcher.matches()) {
+						JOptionPane.showMessageDialog(null,"Invalid Pan Card Number");
+					}
+					else {
+						contBooking();
+					}
 				}
-				String s1 = "0123456789"; // get your editext value here
-				Pattern pattern1 = Pattern.compile("^[1-9]{1}[0-9 ]{11}$");
-				Matcher matcher1 = pattern1.matcher(s1);
-				if (matcher.matches()) {
-					JOptionPane.showMessageDialog(null,"Invalid Aadhar Number");
+				else {
+					String s1 = txtVerificationno.getText().trim(); // get your editext value here
+					Pattern pattern1 = Pattern.compile("^[1-9]{1}[0-9]{11}$");
+					Matcher matcher1 = pattern1.matcher(s1);
+					if (!matcher1.matches()) {
+						JOptionPane.showMessageDialog(null,"Invalid Aadhar Number");
+					}
+					else {
+						contBooking();
+					}
 				}
-				BookingDbManager bdb = new BookingDbManager(req);
-				bdb.bookRoom();
-				frame.dispose();
-				ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
-				window.frame.setVisible(true);
+
 			}
 		});
 		btnBookNow.setBounds(380, 470, 140, 40);
@@ -303,5 +309,16 @@ public class HotelBookingUI {
 		lblSrooms.setText(Integer.toString(req.getRooms()));
 		lblSpersons.setText(Integer.toString(req.getPersons()));
 		
+	}
+	
+	private void contBooking() {
+		long refId = new Date().getTime()/1000;
+		JOptionPane.showMessageDialog(null, "<html>Booking reference no : " + Long.toString(refId)+"<br>Thank you.");
+		req.setRefId(refId);
+		BookingDbManager bdb = new BookingDbManager(req);
+		bdb.bookRoom();
+		frame.dispose();
+		ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
+		window.frame.setVisible(true);
 	}
 }
