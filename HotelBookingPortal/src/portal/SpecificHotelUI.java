@@ -132,7 +132,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		pnlHotelTitle.add(lblHotel);
 		lblHotel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHotel.setPreferredSize(new Dimension(pnlContent.getWidth(),20));
-		lblHotel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		lblHotel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
 		lblHotel.setText(hotel.getName());
 		
 		JPanel pnlAmenities = new JPanel();
@@ -140,6 +140,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		pnlAmenities.setLayout(null);
 		
 		JLabel lblHotelAmenities = new JLabel("24 hours water supply");
+		lblHotelAmenities.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblHotelAmenities.setVerticalAlignment(SwingConstants.TOP);
 		lblHotelAmenities.setLocation(10, 10);
 		lblHotelAmenities.setSize(350, 390);
@@ -147,6 +148,8 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblHotelAmenities.setText(hotel.getAmenitiesList());
 		
 		JPanel pnlReviews = new JPanel();
+		pnlReviews.setPreferredSize(new Dimension(150, 400));
+		pnlReviews.setMinimumSize(new Dimension(150, 400));
 		pnlContent.add(pnlReviews, BorderLayout.EAST);
 		pnlReviews.setLayout(new BoxLayout(pnlReviews, BoxLayout.Y_AXIS));
 		
@@ -160,6 +163,11 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblOverallRatings.setBounds(527, 393, 100, 14);
 		
 		JLabel lblRatingsNo = new JLabel("4.0");
+		lblRatingsNo.setFont(new Font("Tahoma", Font.BOLD, 22));
+//		String temp = " ";
+//		for(int i=0;i<Integer.parseInt(hotel.getRating());i++) {
+//			temp += "\u2605";
+//		}
 		pnlRating.add(lblRatingsNo);
 		lblRatingsNo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRatingsNo.setBounds(627, 393, 46, 14);
@@ -178,6 +186,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblFeedbacks.setBounds(527, 422, 111, 16);
 		
 		JLabel lblFeedbackNo = new JLabel("50");
+		lblFeedbackNo.setFont(new Font("Tahoma", Font.BOLD, 22));
 		pnlFeedbacks.add(lblFeedbackNo);
 		lblFeedbackNo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFeedbackNo.setBounds(637, 422, 36, 16);
