@@ -76,7 +76,7 @@ public class BookingDbManager {
 		  while(a!=0) {
 			  if(!(bookings.get(a-1).equals((ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()))))
 			  { bw.append(bookings.get(a-1));
-			  bw.newLine();
+			    bw.newLine();
 			  }
 			  a--;
 		  }
