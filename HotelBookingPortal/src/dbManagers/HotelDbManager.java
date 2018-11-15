@@ -25,7 +25,7 @@ public class HotelDbManager implements definitions.EnvironmentVariables{
 				String hotelInfo[] = temp.split(",");
 				if(hotelInfo.length==HOTEL_INFO_SIZE) {
 					hotels.add(new Hotel(hotelInfo[H_ID_INDX],hotelInfo[H_NAME_INDX],hotelInfo[H_ADDRESS_INDX],hotelInfo[H_ROOMS_INDX],hotelInfo[H_AMENITIES_INDX],
-							hotelInfo[H_DUPROOMS_INDX],hotelInfo[H_PERSONS_INDX],hotelInfo[H_RATING_INDX],hotelInfo[H_COST_INDX],hotelInfo[H_FEEDBACKS_INDX]));
+							hotelInfo[H_DUPROOMS_INDX],hotelInfo[H_PERSONS_INDX],hotelInfo[H_RATING_INDX],hotelInfo[H_COST_INDX],hotelInfo[H_FEEDBACKS_INDX],hotelInfo[H_DUPCOST_INDX]));
 				}
 			}
 		}catch(FileNotFoundException fnfe) {
@@ -49,7 +49,7 @@ public class HotelDbManager implements definitions.EnvironmentVariables{
 				String hotelInfo[] = temp.split(",");
 				if(hotelInfo.length==HOTEL_INFO_SIZE && hotelInfo[H_ID_INDX].equals(hotelId)) {
 					return new Hotel(hotelInfo[H_ID_INDX],hotelInfo[H_NAME_INDX],hotelInfo[H_ADDRESS_INDX],hotelInfo[H_ROOMS_INDX],hotelInfo[H_AMENITIES_INDX],
-							hotelInfo[H_DUPROOMS_INDX],hotelInfo[H_PERSONS_INDX],hotelInfo[H_RATING_INDX],hotelInfo[H_COST_INDX],hotelInfo[H_FEEDBACKS_INDX]);
+							hotelInfo[H_DUPROOMS_INDX],hotelInfo[H_PERSONS_INDX],hotelInfo[H_RATING_INDX],hotelInfo[H_COST_INDX],hotelInfo[H_FEEDBACKS_INDX],hotelInfo[H_DUPCOST_INDX]);
 				}
 			}
 		}

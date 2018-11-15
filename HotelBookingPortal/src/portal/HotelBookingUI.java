@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import definitions.EnvironmentVariables;
@@ -14,6 +15,11 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -33,6 +39,7 @@ import java.awt.Frame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.BoxLayout;
 
 public class HotelBookingUI {
 
@@ -134,20 +141,17 @@ public class HotelBookingUI {
 		});
 		header.add(ivProfile,BorderLayout.EAST);
 		
-		txtVerificationno = new JTextField();
-		txtVerificationno.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		txtVerificationno.setHorizontalAlignment(SwingConstants.CENTER);
-		txtVerificationno.setText("verificationNo");
-		txtVerificationno.setBounds(225, 420, 450, 40);
-		panel.add(txtVerificationno);
-		txtVerificationno.setColumns(10);
-		
 		JPanel rbtnPanel = new JPanel();
 		rbtnPanel.setBounds(225, 375, 450, 41);
 		panel.add(rbtnPanel);
 		rbtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		rdbtnAadhaar = new JRadioButton("Aadhaar No");
+		rdbtnAadhaar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				rdbtnPanCard.setSelected(false);
+			}
+		});
 		rdbtnAadhaar.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		rdbtnAadhaar.setSelected(true);
 		rdbtnAadhaar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -160,6 +164,11 @@ public class HotelBookingUI {
 		rbtnPanel.add(emptyLabel);
 		
 		rdbtnPanCard = new JRadioButton("Pan Card No");
+		rdbtnPanCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnAadhaar.setSelected(false);
+			}
+		});
 		rdbtnPanCard.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		rdbtnPanCard.setHorizontalAlignment(SwingConstants.CENTER);
 		rbtnPanel.add(rdbtnPanCard);
@@ -167,6 +176,18 @@ public class HotelBookingUI {
 		JButton btnBookNow = new JButton("Book Now");
 		btnBookNow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String s = "ABCDE1234F"; // get your editext value here
+				Pattern pattern = Pattern.compile("^[A-Z]{5}[0-9]{4}[A-Z]{1}$");
+				Matcher matcher = pattern.matcher(s);
+				if (matcher.matches()) {
+					JOptionPane.showMessageDialog(null,"Invalid Pan Card Number");
+				}
+				String s1 = "0123456789"; // get your editext value here
+				Pattern pattern1 = Pattern.compile("^[1-9]{1}[0-9 ]{11}$");
+				Matcher matcher1 = pattern1.matcher(s1);
+				if (matcher.matches()) {
+					JOptionPane.showMessageDialog(null,"Invalid Aadhar Number");
+				}
 				BookingDbManager bdb = new BookingDbManager(req);
 				bdb.bookRoom();
 				frame.dispose();
@@ -199,5 +220,88 @@ public class HotelBookingUI {
 		
 		JPanel pnlUserReq = new JPanel();
 		pnlHotelView.add(pnlUserReq, BorderLayout.CENTER);
+		pnlUserReq.setLayout(new BoxLayout(pnlUserReq, BoxLayout.Y_AXIS));
+		
+		JPanel pnlCity = new JPanel();
+		pnlUserReq.add(pnlCity);
+		
+		JLabel lblCity = new JLabel("City Name : ");
+		pnlCity.add(lblCity);
+		
+		JLabel lblScity = new JLabel("Scity");
+		pnlCity.add(lblScity);
+		
+		JPanel pnlRoomType = new JPanel();
+		pnlUserReq.add(pnlRoomType);
+		
+		JLabel lblRoomType = new JLabel("Room Type : ");
+		pnlRoomType.add(lblRoomType);
+		
+		JLabel lblSroomType = new JLabel("sroomType");
+		pnlRoomType.add(lblSroomType);
+		
+		JPanel pnlChkIn = new JPanel();
+		pnlUserReq.add(pnlChkIn);
+		
+		JLabel lblChkin = new JLabel("Check In Date : ");
+		pnlChkIn.add(lblChkin);
+		
+		JLabel lblSchkin = new JLabel("schkin");
+		pnlChkIn.add(lblSchkin);
+		
+		JPanel pnlChkOut = new JPanel();
+		pnlUserReq.add(pnlChkOut);
+		
+		JLabel lblChkout = new JLabel("Check Out Date : ");
+		pnlChkOut.add(lblChkout);
+		
+		JLabel lblSchkout = new JLabel("schkout");
+		pnlChkOut.add(lblSchkout);
+		
+		JPanel pnlRooms = new JPanel();
+		pnlUserReq.add(pnlRooms);
+		
+		JLabel lblRooms = new JLabel("Rooms : ");
+		pnlRooms.add(lblRooms);
+		
+		JLabel lblSrooms = new JLabel("srooms");
+		pnlRooms.add(lblSrooms);
+		
+		JPanel pnlPersons = new JPanel();
+		pnlUserReq.add(pnlPersons);
+		
+		JLabel lblPersons = new JLabel("No of Persons : ");
+		pnlPersons.add(lblPersons);
+		
+		JLabel lblSpersons = new JLabel("spersons");
+		pnlPersons.add(lblSpersons);
+		
+		JPanel pnlVerfNo = new JPanel();
+		pnlVerfNo.setBounds(0, 423, frame.getWidth()-5, 40);
+		panel.add(pnlVerfNo);
+		
+		JLabel lblEnterAadharpanHere = new JLabel("Enter Aadhar/Pan Here : ");
+		lblEnterAadharpanHere.setFont(new Font("Tahoma", Font.ITALIC, 15));
+		pnlVerfNo.add(lblEnterAadharpanHere);
+		
+		txtVerificationno = new JTextField();
+		pnlVerfNo.add(txtVerificationno);
+		txtVerificationno.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtVerificationno.setHorizontalAlignment(SwingConstants.CENTER);
+		txtVerificationno.setSize(new Dimension(400,pnlVerfNo.getHeight()-4));
+		txtVerificationno.setPreferredSize(new Dimension(500, 36));
+		txtVerificationno.setMinimumSize(new Dimension(500, 36));
+		txtVerificationno.setColumns(25);
+		
+		lblScity.setText(req.getCity());
+		lblSroomType.setText(req.getRoomtype());
+		Date chkin = new Date(req.getCheckin());
+		Date chkiout = new Date(req.getCheckout());
+		Format format = new SimpleDateFormat("yyyy MM dd ");
+		lblSchkin.setText(format.format(chkin));
+		lblSchkout.setText(format.format(chkiout));
+		lblSrooms.setText(Integer.toString(req.getRooms()));
+		lblSpersons.setText(Integer.toString(req.getPersons()));
+		
 	}
 }

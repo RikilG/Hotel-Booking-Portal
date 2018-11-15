@@ -10,11 +10,12 @@ public class Hotel {
 	private String persons; // persons per room.
 	private String rating;
 	private String cost;
+	private String dupCost;
 	private String noOfFeedbacks;
 	
 	public Hotel() {} //Empty constructor to keep all to null.
 	
-	public Hotel(String id, String name, String address, String rooms, String amenities, String dupRooms, String persons, String rating, String cost, String feedbacks) {
+	public Hotel(String id, String name, String address, String rooms, String amenities, String dupRooms, String persons, String rating, String cost, String feedbacks, String dupCost) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -24,6 +25,7 @@ public class Hotel {
 		this.rating = rating;
 		this.persons = persons;
 		this.cost = cost;
+		this.dupCost = dupCost;
 		this.noOfFeedbacks = feedbacks;
 	}
 
@@ -106,6 +108,14 @@ public class Hotel {
 	public String toDbString() {
 		String temp = String.valueOf(id) + "," + name + "," + address + "," + rooms;
 		return temp;
+	}
+
+	public String getDupCost() {
+		return dupCost;
+	}
+
+	public void setDupCost(String dupCost) {
+		this.dupCost = dupCost;
 	}
 	
 //	public void setName(String name) {

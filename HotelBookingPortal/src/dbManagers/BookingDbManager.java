@@ -53,8 +53,8 @@ public class BookingDbManager {
 		   while((tmp=br.readLine())!=null) {
 			 String binfo[]=tmp.split(",");
 			 if(binfo[0].equals(hotel.getId())) {
-				 System.out.println(binfo[2]);
-				 System.out.println(ur.getRoomtype());
+				 //System.out.println(binfo[2]);
+				 //System.out.println(ur.getRoomtype());
 				 if(binfo[2].equals(ur.getRoomtype())) {
     if(((Long.parseLong(binfo[3])<=ur.getCheckin())&&(ur.getCheckin()<=Long.parseLong(binfo[4])))||
     		((Long.parseLong(binfo[3])<=ur.getCheckout()))&&(ur.getCheckout()<=Long.parseLong(binfo[4]))){
