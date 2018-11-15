@@ -10,6 +10,7 @@ public class UserRequirements {
  private long checkout;
  private int rooms;
  private int persons;
+ private Hotel hotel;
  public UserRequirements(String city,long check_in,long  check_out,int rooms,int persons){
 	 this.city=city;
 	 this.checkin=check_in;
@@ -79,6 +80,13 @@ public int getPersons() {
 }
 public void setPersons(int persons) {
 	this.persons = persons;
+}
+public Hotel getHotel() {
+	return hotel;
+}
+public void setHotel(Hotel hotel) {
+	this.hotel = hotel;
+	this.hotelid = hotel.getId();
 }
  
 }

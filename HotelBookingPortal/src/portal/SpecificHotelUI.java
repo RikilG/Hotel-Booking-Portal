@@ -163,15 +163,16 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblOverallRatings.setBounds(527, 393, 100, 14);
 		
 		JLabel lblRatingsNo = new JLabel("4.0");
-		lblRatingsNo.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblRatingsNo.setFont(new Font("Lucida Sans Unicode", Font.BOLD, 22));
 //		String temp = " ";
 //		for(int i=0;i<Integer.parseInt(hotel.getRating());i++) {
-//			temp += "\u2605";
+//			temp += "★";
 //		}
 		pnlRating.add(lblRatingsNo);
 		lblRatingsNo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRatingsNo.setBounds(627, 393, 46, 14);
 		lblRatingsNo.setText(hotel.getRating());
+//		lblRatingsNo.setText(temp);
 		
 		JPanel emptyPanel = new JPanel();
 		pnlReviews.add(emptyPanel);
@@ -217,11 +218,17 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		int result;
 		if(btnStandardRoom.isFocusOwner()) {
 			result = JOptionPane.showConfirmDialog(null, "Do You Want to Book a Standard room in this hotel?");
-			//call HotelBookingUI with this.
+			if(result == JOptionPane.YES_OPTION) {
+				portal.Main.userRequirements.setRoomtype("standard");
+				portal.Main.userRequirements.setHotel(hotel);
+			}
 		}
 		else if(btnDeluxeRoom.isFocusOwner()) {
 			result = JOptionPane.showConfirmDialog(null, "Do You Want to Book a Deluxe room in this hotel?");
-			//call HotelBookingUI with this.
+			if(result == JOptionPane.YES_OPTION) {
+				portal.Main.userRequirements.setRoomtype("deluxe");
+				portal.Main.userRequirements.setHotel(hotel);
+			}
 		}
 	}
 }

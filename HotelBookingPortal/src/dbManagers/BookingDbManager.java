@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import definitions.Hotel;
 import definitions.UserRequirements;
 
 public class BookingDbManager {
@@ -23,9 +24,22 @@ public class BookingDbManager {
 	}*/
   UserRequirements ur;
   int totalrooms;
+  Hotel hotel;
   BookingDbManager(UserRequirements ur,int totalrooms){
 	  this.ur=ur;
 	  this.totalrooms=totalrooms;
+  }
+  public BookingDbManager(Hotel hotel,String type,UserRequirements u) {
+	  this.hotel = hotel;
+	  ur = u;
+	  if(type.equals("duplex")) {
+		  totalrooms = Integer.parseInt(hotel.getDupRooms());
+		  ur.setRoomtype("duplex");
+	  }
+	  else if(type.equals("standard")) {
+		  totalrooms = Integer.parseInt(hotel.getRooms());
+		  ur.setRoomtype("standard");
+	  }
   }
   File bkng=new File(this.getClass().getResource("/bookingsDB.csv").getPath());
 
@@ -51,7 +65,7 @@ public class BookingDbManager {
 	   catch(Exception e) {
 		   
 	   }
-	   return totalrooms;
+	   return totalrooms - ur.getRooms();
    }
   public void bookRoom() {
 	  try(BufferedWriter bw=new BufferedWriter(new FileWriter(bkng,true))){

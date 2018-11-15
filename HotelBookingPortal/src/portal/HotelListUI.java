@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import static javax.swing.ScrollPaneConstants.*;
 
+import dbManagers.BookingDbManager;
 import dbManagers.HotelDbManager;
 import definitions.Hotel;
 import definitions.HotelCard;
@@ -61,6 +62,7 @@ public class HotelListUI {
 	 * Create the application.
 	 */
 	public HotelListUI(String cityName) {
+		req = new UserRequirements( cityName, 543534,  232432, 5, 3);
 		this.cityName = cityName;
 		hotelDb = new HotelDbManager(cityName);
 		hotelList = hotelDb.readDB();
@@ -137,8 +139,12 @@ public class HotelListUI {
 		header.add(ivProfile,BorderLayout.EAST);
 		
 		for(Hotel h:hotelList) {
-			panel.add(new JPanel());
-			panel.add(new HotelCard(h, HotelCard.BOOKING/*,(HotelListUI)this*/));
+			BookingDbManager bdb1 = new BookingDbManager(h,"duplex",req);
+			BookingDbManager bdb2 = new BookingDbManager(h,"standard",req);
+			if(bdb1.getRooms()>0 || bdb2.getRooms()>0) {
+				panel.add(new JPanel());
+				panel.add(new HotelCard(h, HotelCard.BOOKING/*,(HotelListUI)this*/));
+			}
 		}
 		panel.add(new JPanel());
 		frame.getContentPane().add(scrollPane);
