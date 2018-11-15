@@ -16,6 +16,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import dbManagers.BookingDbManager;
+
 import javax.swing.ImageIcon;
 
 import java.awt.BorderLayout;
@@ -27,6 +30,8 @@ import java.awt.Font;
 import java.awt.Frame;
 
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HotelBookingUI {
 
@@ -159,6 +164,15 @@ public class HotelBookingUI {
 		rbtnPanel.add(rdbtnPanCard);
 		
 		JButton btnBookNow = new JButton("Book Now");
+		btnBookNow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BookingDbManager bdb = new BookingDbManager(req);
+				bdb.bookRoom();
+				frame.dispose();
+				ProfileUI window = new ProfileUI();
+				window.frame.setVisible(true);
+			}
+		});
 		btnBookNow.setBounds(380, 470, 140, 40);
 		panel.add(btnBookNow);
 		

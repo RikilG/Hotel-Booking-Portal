@@ -221,6 +221,9 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 			if(result == JOptionPane.YES_OPTION) {
 				portal.Main.userRequirements.setRoomtype("standard");
 				portal.Main.userRequirements.setHotel(hotel);
+				HotelBookingUI window = new HotelBookingUI(hotel);
+				window.frame.setVisible(true);
+				dispose();
 			}
 		}
 		else if(btnDeluxeRoom.isFocusOwner()) {
@@ -228,6 +231,9 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 			if(result == JOptionPane.YES_OPTION) {
 				portal.Main.userRequirements.setRoomtype("deluxe");
 				portal.Main.userRequirements.setHotel(hotel);
+				HotelBookingUI window = new HotelBookingUI(hotel);
+				window.frame.setVisible(true);
+				dispose();
 			}
 		}
 	}

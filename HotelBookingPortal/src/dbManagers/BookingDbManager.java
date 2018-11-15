@@ -25,7 +25,8 @@ public class BookingDbManager {
   UserRequirements ur;
   int totalrooms;
   Hotel hotel;
-  BookingDbManager(UserRequirements ur,int totalrooms){
+  public BookingDbManager(){} //empty constructor dont delete(used to check hotels booked by user)
+  public BookingDbManager(UserRequirements ur,int totalrooms){
 	  this.ur=ur;
 	  this.totalrooms=totalrooms;
   }
@@ -41,6 +42,9 @@ public class BookingDbManager {
 		  ur.setRoomtype("standard");
 	  }
   }
+  public BookingDbManager(UserRequirements ur) {
+	  this.ur = ur;
+  }
   File bkng=new File(this.getClass().getResource("/bookingsDB.csv").getPath());
 
    public int getRooms() {
@@ -48,7 +52,7 @@ public class BookingDbManager {
 	   try(BufferedReader br = new BufferedReader(new FileReader(bkng))){
 		   while((tmp=br.readLine())!=null) {
 			 String binfo[]=tmp.split(",");
-			 if(binfo[0].equals(ur.getHotelid())) {
+			 if(binfo[0].equals(hotel.getId())) {
 				 System.out.println(binfo[2]);
 				 System.out.println(ur.getRoomtype());
 				 if(binfo[2].equals(ur.getRoomtype())) {
@@ -69,7 +73,7 @@ public class BookingDbManager {
    }
   public void bookRoom() {
 	  try(BufferedWriter bw=new BufferedWriter(new FileWriter(bkng,true))){
-		  bw.append(ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms());
+		  bw.append(ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()+","+ur.getCity());
 		  bw.newLine();
 	  }
 	  catch(Exception e) {
@@ -86,9 +90,9 @@ public class BookingDbManager {
 		  }
 		  BufferedWriter bw=new BufferedWriter(new FileWriter(bkng));
 		  a=bookings.size();
-		  System.out.println(a);
+		  //System.out.println(a);
 		  while(a!=0) {
-			  if(!(bookings.get(a-1).equals((ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()))))
+			  if(!(bookings.get(a-1).equals((ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()+","+ur.getCity()))))
 			  { bw.append(bookings.get(a-1));
 			    bw.newLine();
 			  }
@@ -98,6 +102,27 @@ public class BookingDbManager {
 	  } catch (Exception e) {
 		e.printStackTrace();
 	}
+  }
+  
+  public ArrayList<UserRequirements> userBookedHotels(String userId) {
+	  ArrayList<UserRequirements> bookedHotels = new ArrayList<UserRequirements>();
+	  try(BufferedReader br = new BufferedReader(new FileReader(bkng))){
+		  String tmp;
+		  //UserRequirements temp;
+		  while((tmp=br.readLine())!=null) {
+			  String details[] = tmp.split(",");
+			  if(details[1].equals(userId)) {
+				  //bookedHotels.append(new Hotel(hotel based on id)); //append hotel based on id;
+				  HotelDbManager hdb = new HotelDbManager(details[6]);
+				  //bookedHotels.add(hdb.getHotelFromDB(details[0].trim()));
+				  bookedHotels.add(new UserRequirements(details,hdb.getHotelFromDB(details[0].trim())));
+			  }
+		  }
+	  }catch(Exception e){
+		  System.out.println(e);
+		  e.printStackTrace();
+	  }
+	  return bookedHotels;
   }
 }
 

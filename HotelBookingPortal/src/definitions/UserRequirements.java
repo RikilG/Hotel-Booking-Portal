@@ -17,6 +17,7 @@ public class UserRequirements {
 	 this.checkout=check_out;
 	 this.rooms=rooms;
 	 this.persons=persons;
+	 this.userid = portal.Main.logInCustomer.getId();
   }
  public UserRequirements(String usr,String hoid,String rtyp,long cin,long cout,int nor) {
 	 userid=usr;
@@ -32,6 +33,18 @@ public class UserRequirements {
 	 checkin=cin;
 	 checkout=cout;
 	 rooms=nor;
+	 this.userid = portal.Main.logInCustomer.getId();
+ }
+ public UserRequirements(String details[],Hotel hotel) {
+	 //ur.getHotelid()+","+ur.getUserid()+","+ur.getRoomtype()+","+ur.getCheckin()+","+ur.getCheckout()+","+ur.getRooms()+","+ur.getCity()
+	 hotelid = details[0];
+	 userid = details[1];
+	 roomtype = details[2];
+	 checkin = Long.parseLong(details[3]);
+	 checkout = Long.parseLong(details[4]);
+	 rooms = Integer.parseInt(details[5]);
+	 city = details[6];
+	 this.hotel = hotel;
  }
 public String getHotelid() {
 	return hotelid;

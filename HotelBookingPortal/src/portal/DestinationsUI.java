@@ -293,13 +293,13 @@ public class DestinationsUI implements ActionListener {
 								try {
 									ur = new UserRequirements(city,dateChooser.getDate().getTime(),dateChooser_1.getDate().getTime(),room,person);
 									HotelListUI window = new HotelListUI(ur);
+									portal.Main.userRequirements = ur;
 									window.frame.setVisible(true);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
 							}
 						});
-						portal.Main.userRequirements = ur;
 						frame.dispose();
 					}
 				}

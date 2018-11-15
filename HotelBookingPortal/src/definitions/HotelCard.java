@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,13 +15,16 @@ import java.awt.event.MouseAdapter;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import dbManagers.BookingDbManager;
 import dbManagers.HotelDbManager;
 import portal.HotelBookingUI;
 import portal.HotelListUI;
+import portal.ProfileUI;
 import portal.SpecificHotelUI;
 
 import javax.swing.SwingConstants;
@@ -35,6 +40,7 @@ public class HotelCard extends JPanel {
 	private HotelDbManager hotelDb;
 	private Hotel hotel;
 	private int bookingStatus;
+	private UserRequirements req;
 //	String hotelId;
 //	String cityName;
 	private int dimX;
@@ -60,6 +66,21 @@ public class HotelCard extends JPanel {
 		this.hotel = hotel;
 		this.bookingStatus = bookingStatus;
 		//this.caller = caller;
+		dimX = 800;dimY = 150;
+		setMeasures();
+	}
+	
+	public HotelCard(Hotel hotel,int bookingStatus,UserRequirements req/*, HotelListUI caller*/) {
+		this.req = req;
+//		this.cityName = cityName;
+		this.hotel = hotel;
+		this.bookingStatus = bookingStatus;
+		//this.caller = caller;
+		dimX = 800;dimY = 150;
+		setMeasures();
+	}
+	
+	public HotelCard() {
 		dimX = 800;dimY = 150;
 		setMeasures();
 	}
@@ -206,13 +227,23 @@ public class HotelCard extends JPanel {
 		//caller.frame.dispose();
 	}
 	
-	private void bookingCancel() {
-		int ans = JOptionPane.showConfirmDialog(null,"Do you really want to cancel this booking?");
-		if(ans == JOptionPane.YES_OPTION) {
-			// delete corresponding hotel for this user (portal.Main.LogInUser)
+	protected void bookingCancel() {
+		if(req.getCheckin() - (new Date().getTime()) > 259200000) {
+			int ans = JOptionPane.showConfirmDialog(null,"Do you really want to cancel this booking?");
+			if(ans == JOptionPane.YES_OPTION) {
+				// delete corresponding hotel for this user (portal.Main.LogInUser)
+				BookingDbManager bdb = new BookingDbManager(req);
+				bdb.cancelRoom();
+				Frame openWindows[] = Frame.getFrames();
+				for(Frame f : openWindows) {
+					f.dispose();
+				}
+				ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
+				window.frame.setVisible(true);
+			}
 		}
 		else {
-			
+			JOptionPane.showMessageDialog(null, "Cannot cancel as check in date is less than 3 days away.");
 		}
 	}
 	

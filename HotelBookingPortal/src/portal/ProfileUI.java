@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,10 +19,12 @@ import javax.swing.SwingConstants;
 
 import static javax.swing.ScrollPaneConstants.*;
 
+import dbManagers.BookingDbManager;
 import dbManagers.HotelDbManager;
 import definitions.Customer;
 import definitions.Hotel;
 import definitions.HotelCard;
+import definitions.UserRequirements;
 import definitions.EnvironmentVariables;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -31,7 +34,7 @@ import java.awt.GridLayout;
 public class ProfileUI {
 
 	private HotelDbManager hotelDb;
-	private Hotel hotelList[];
+	private ArrayList<UserRequirements> hotelList;
 	private Customer user;
 	
 	public JFrame frame;
@@ -87,13 +90,11 @@ public class ProfileUI {
 	public ProfileUI() {
 		index = EnvironmentVariables.VIEWING;
 		user = portal.Main.logInCustomer;
-		hotelList = new Hotel[0]; // remove this
 		initialize();
 	}
 	public ProfileUI(int status) {
 		index = status;
 		user = portal.Main.logInCustomer;
-		hotelList = new Hotel[0]; // remove this
 		initialize();
 	}
 
@@ -101,6 +102,9 @@ public class ProfileUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		BookingDbManager bdb = new BookingDbManager();
+		hotelList = bdb.userBookedHotels(portal.Main.logInCustomer.getId());
+		
 		frame = new JFrame();
 		spanel = new JPanel();
 		scrollPane = new JScrollPane(spanel);
@@ -267,9 +271,11 @@ public class ProfileUI {
 		lblDynamicEmail = new JLabel(user.getEmail());
 		panel_2.add(lblDynamicEmail);
 		
-		for(Hotel h:hotelList) {
-			spanel.add(new JPanel());
-			spanel.add(new HotelCard(h,HotelCard.VIEWING));
+		if(hotelList.size() > 0) {
+			for(UserRequirements h:hotelList) {
+				spanel.add(new JPanel());
+				spanel.add(new HotelCard(h.getHotel(),HotelCard.VIEWING,h));
+			}
 		}
 		spanel.add(new JPanel());
 		frame.getContentPane().add(scrollPane);
@@ -289,7 +295,20 @@ public class ProfileUI {
 			LoginUI objWindow=new LoginUI();
 			objWindow.frame.setVisible(true);
 		}
-	
 	}
+	
+//	public void refreshHotels() {
+//		frame.revalidate();
+//		BookingDbManager bdb = new BookingDbManager();
+//		hotelList = bdb.userBookedHotels(portal.Main.logInCustomer.getId());
+//		
+//		if(hotelList.size() > 0) {
+//			for(UserRequirements h:hotelList) {
+//				spanel.add(new JPanel());
+//				spanel.add(new HotelCard(h.getHotel(),HotelCard.VIEWING,(ProfileUI)this));
+//			}
+//		}
+//		frame.revalidate();
+//	}
 
 }
