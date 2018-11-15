@@ -13,22 +13,28 @@ import java.awt.event.MouseAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dbManagers.HotelDbManager;
+import portal.HotelBookingUI;
 import portal.HotelListUI;
-import portal.HotelViewUI;
+import portal.SpecificHotelUI;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class HotelCard extends JPanel {
 	
-	private HotelListUI caller;
+	public static final int BOOKING=1;
+	public static final int VIEWING=0;
+	
+//	private HotelListUI caller;
 	private HotelDbManager hotelDb;
 	private Hotel hotel;
+	private int bookingStatus;
 //	String hotelId;
-	String cityName;
+//	String cityName;
 	private int dimX;
 	private int dimY;
 	static int padding=12;
@@ -42,10 +48,11 @@ public class HotelCard extends JPanel {
 	/**
 	 * @wbp.parser.constructor 
 	 */
-	public HotelCard(String cityName, Hotel hotel, HotelListUI caller) {
-		this.cityName = cityName;
+	public HotelCard(Hotel hotel,int bookingStatus/*, HotelListUI caller*/) {
+//		this.cityName = cityName;
 		this.hotel = hotel;
-		this.caller = caller;
+		this.bookingStatus = bookingStatus;
+		//this.caller = caller;
 		dimX = 800;dimY = 150;
 		setMeasures();
 	}
@@ -107,23 +114,36 @@ public class HotelCard extends JPanel {
 		add(rightPanel);
 		
 		lblHotelname = new JLabel(hotel.getName());
-		lblHotelname.setBounds(0, 0, rightPanel.getSize().width - 102, 33);
+		lblHotelname.setBounds(5, 0, rightPanel.getSize().width - 160, 33);
 		lblHotelname.setFont(new Font("Dialog", Font.BOLD, 20));
 		rightPanel.add(lblHotelname);
 		
-		lblHotelcontent = new JLabel(hotel.getAmenities());
+		lblHotelcontent = new JLabel("<html>"+hotel.getAmenities()+"</html>");
 		lblHotelcontent.setVerticalAlignment(SwingConstants.TOP);
-		lblHotelcontent.setBounds(0, 36, rightPanel.getSize().width, rightPanel.getSize().height - lblHotelname.getSize().height - padding/2);
+		lblHotelcontent.setBounds(5, 40, rightPanel.getSize().width-10, rightPanel.getSize().height - lblHotelname.getSize().height - padding/2 - 4);
+		lblHotelcontent.setMaximumSize(new Dimension(rightPanel.getSize().width, rightPanel.getSize().height - lblHotelname.getSize().height - padding/2));
 		rightPanel.add(lblHotelcontent);
 		
-		btnViewHotel = new JButton("View Hotel");
-		btnViewHotel.setBounds(rightPanel.getSize().width - 102, 2, 100, 33);
-		btnViewHotel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openHotelViewPage();
-			}
-		});
-		rightPanel.add(btnViewHotel);
+		if(bookingStatus == BOOKING) {
+			btnViewHotel = new JButton("View Deal");
+			btnViewHotel.setBounds(rightPanel.getSize().width - 152, 2, 150, 33);
+			btnViewHotel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					openHotelViewPage();
+				}
+			});
+			rightPanel.add(btnViewHotel);
+		}
+		else if(bookingStatus == VIEWING) {
+			btnViewHotel = new JButton("Cancel Booking");
+			btnViewHotel.setBounds(rightPanel.getSize().width - 152, 2, 150, 33);
+			btnViewHotel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					bookingCancel();
+				}
+			});
+			rightPanel.add(btnViewHotel);
+		}
 	}
 
 	private void setImage(JPanel jp, String hotelId) {
@@ -135,17 +155,41 @@ public class HotelCard extends JPanel {
 	}
 	
 	private void openHotelViewPage() {
-		setBackground(new Color((int)(Math.random() * 0x1000000)));
+		//setBackground(new Color((int)(Math.random() * 0x1000000)));
+		setBackground(Color.LIGHT_GRAY);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HotelViewUI window = new HotelViewUI(cityName, hotel);
-					window.frame.setVisible(true);
+					SpecificHotelUI window = new SpecificHotelUI(BOOKING, hotel);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		caller.frame.dispose();
+		//caller.frame.dispose();
 	}
+	
+	private void bookingCancel() {
+		int ans = JOptionPane.showConfirmDialog(null,"Do you really want to cancel this booking?");
+		if(ans == JOptionPane.YES_OPTION) {
+			// delete corresponding hotel for this user (portal.Main.LogInUser)
+		}
+		else {
+			
+		}
+	}
+	
+//	private void openHotelBookPage() {
+//	EventQueue.invokeLater(new Runnable() {
+//		public void run() {
+//			try {
+//				HotelBookingUI window = new HotelBookingUI(hotel);
+//				window.frame.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	});
+//}
 }
