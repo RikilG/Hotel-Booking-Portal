@@ -365,7 +365,7 @@ public class RegisterUI {
 				if(!mtch5.matches()) {
 					JOptionPane.showMessageDialog(null,"Invalid Mobile Number");
 				}
-				String userName = "^[a-zA-Z0-9!@#%&_]{1,20}$";
+				String userName = "^[a-zA-Z0-9!@#%&-_]{1,20}$";
 				Pattern pattern2 = Pattern.compile(userName);
 				Matcher mtch2 = pattern2.matcher(tfUsername.getText());
 				if(!mtch2.matches()) {
@@ -383,14 +383,21 @@ public class RegisterUI {
 					JOptionPane.showMessageDialog(null,"passwords do not match.\n please enter same passwords");
 				}
 				if(mtch1.matches() && mtch4.matches() && mtch5.matches() && mtch2.matches() && mtch3.matches() && one.equals(two)) {
-					JOptionPane.showMessageDialog(null, "Registered Successfully.\n Login to Continue");
-					CustomerDbManager dbio = new CustomerDbManager();
-					String dob = DateFormat.getDateInstance().format(dateChooser.getDate());
-					Customer c = new Customer("0", tfUsername.getText().toLowerCase().trim(), String.valueOf(setpasswordField.getPassword()), tfName.getText(), dob, taAddress.getText(), tfEmailId.getText(), txtMobile.getText()); //edit this.
-					dbio.writeDB(c);
-					frame.dispose();
-					LoginUI window = new LoginUI();
-					window.frame.setVisible(true);
+					CustomerDbManager cdb = new CustomerDbManager();
+					if(cdb.usernameAvailable(tfUsername.getText().toLowerCase().trim())) {
+						JOptionPane.showMessageDialog(null, "Registered Successfully.\n Login to Continue");
+						CustomerDbManager dbio = new CustomerDbManager();
+						String dob = DateFormat.getDateInstance().format(dateChooser.getDate());
+						Customer c = new Customer("0", tfUsername.getText().toLowerCase().trim(), String.valueOf(setpasswordField.getPassword()), tfName.getText(), dob, taAddress.getText(), tfEmailId.getText(), txtMobile.getText()); //edit this.
+						dbio.writeDB(c);
+						frame.dispose();
+						LoginUI window = new LoginUI();
+						window.frame.setVisible(true);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Username already taken. Please choose another.");
+						tfUsername.setText("");
+					}
 				}
 			}
 			
@@ -408,6 +415,7 @@ public class RegisterUI {
 		// check strings and write to database.
 		System.out.println("working");
 	}
+	
 	void reValidateFrame() {
 		frame.revalidate();
 	}
@@ -429,6 +437,7 @@ public class RegisterUI {
 		
 		reValidateFrame();
 	}
+	
 	public class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "Register");

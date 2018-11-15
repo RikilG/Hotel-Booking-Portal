@@ -175,7 +175,7 @@ public class ProfileUI {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_4.add(lblNewLabel_2);
 		
-		lblNewLabel_1 = new JLabel("aaaaaaaaaaaaaaaaaaaaaa");
+		lblNewLabel_1 = new JLabel("aaaaaaaaaaaaaaaaa");
 		lblNewLabel_1.setVisible(false);
 		panelRight.add(lblNewLabel_1);
 		
@@ -257,7 +257,7 @@ public class ProfileUI {
 		lblAddress.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblAddress);
 		
-		lblDynamicAddress = new JLabel(user.getAddress());
+		lblDynamicAddress = new JLabel("<html><br>"+user.getAddress()+"</html>");
 		panel_2.add(lblDynamicAddress);
 		
 		lblEMail = new JLabel("Email :");

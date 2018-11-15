@@ -132,4 +132,28 @@ public class CustomerDbManager implements EnvironmentVariables{
 		
 	}
 	
+	public boolean usernameAvailable(String username) {
+		String temp;
+		
+		try(BufferedReader br = new BufferedReader(new FileReader(dbFile))) {
+			if(!dbFile.exists()) {
+				throw new FileNotFoundException();
+			}
+			while((temp=br.readLine())!=null) {
+				String userInfo[] = temp.split(",");
+				if(userInfo.length==USER_INFO_SIZE && userInfo[USERNAME_INDX].equals(username)) {
+					return false;
+				}
+			}
+		}
+		catch(FileNotFoundException fnfe) {
+			System.out.println(fnfe);
+			fnfe.printStackTrace();
+		}catch(IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 }
