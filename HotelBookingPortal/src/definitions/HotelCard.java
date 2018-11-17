@@ -112,7 +112,7 @@ public class HotelCard extends JPanel {
 		leftPanel.setSize(new Dimension((int)(dimX*0.3), dimY - 2*padding));
 		leftPanel.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
-				openHotelViewPage();
+				openHotelViewPage(1);
 			}
 		});
 		setImage(leftPanel, hotel.getId());
@@ -122,13 +122,15 @@ public class HotelCard extends JPanel {
 		rightPanel.setSize(new Dimension((int)(dimX*0.7 - 3*padding), dimY-2*padding));
 		rightPanel.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent me) {
-				openHotelViewPage();
+				openHotelViewPage(bookingStatus);
 			}
 		});
 		add(rightPanel);
 		rightPanel.setLayout(new BorderLayout(0, 0));
 		
 		pnlHotelName = new JPanel();
+		pnlHotelName.setBackground(new Color(238, 232, 170));
+		pnlHotelName.setForeground(new Color(0, 0, 0));
 		rightPanel.add(pnlHotelName, BorderLayout.NORTH);
 		pnlHotelName.setLayout(new BoxLayout(pnlHotelName, BoxLayout.X_AXIS));
 		
@@ -137,13 +139,16 @@ public class HotelCard extends JPanel {
 		lblHotelname.setFont(new Font("Dialog", Font.BOLD, 20));
 		
 		lblHotelcontent = new JLabel();
+		lblHotelcontent.setBackground(new Color(238, 232, 170));
+		lblHotelcontent.setForeground(new Color(0, 0, 0));
 		lblHotelcontent.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		if(bookingStatus == EnvironmentVariables.VIEWING) {
 			Date checkin = new Date(req.getCheckin());
 			Date checkout = new Date(req.getCheckout());
 			Format format = new SimpleDateFormat("yyyy/MM/dd ");
-			String temp = "<html><br>";
+			String temp = "<html>";
 			temp += " City : " + req.getCity() + "<br>";
+			temp += " No Of Rooms : " + req.getRooms() + "<br>";
 			temp += " Check in Date : " + format.format(checkin) + "<br>";
 			temp += " Check out Date : " + format.format(checkout) + "<br>";
 			temp += " Booking Reference No : " + req.getRefId() + "<br>";
@@ -151,17 +156,18 @@ public class HotelCard extends JPanel {
 			lblHotelcontent.setText(temp);
 		}
 		else {
-			lblHotelcontent.setText("<html>"+hotel.getAmenities()+"</html>");
+			lblHotelcontent.setText("<html><br>"+hotel.getAmenities()+"</html>");
 		}
 		lblHotelcontent.setVerticalAlignment(SwingConstants.TOP);
-		lblHotelcontent.setMaximumSize(new Dimension(rightPanel.getSize().width, rightPanel.getSize().height - padding/2));
+		lblHotelcontent.setMaximumSize(new Dimension(300, 120));
 		rightPanel.add(lblHotelcontent, BorderLayout.CENTER);
 		
 		pnlHotelCost = new JPanel();
+		pnlHotelCost.setBackground(new Color(238, 232, 170));
 		pnlHotelCost.setLayout(new BoxLayout(pnlHotelCost, BoxLayout.X_AXIS));
 		rightPanel.add(pnlHotelCost,BorderLayout.EAST);
 		
-		if(bookingStatus == EnvironmentVariables.BOOKING) {
+		if(bookingStatus == EnvironmentVariables.BOOKING ) {
 			stdPnl();
 			JPanel pnlLine = new JPanel();
 			pnlLine.setBackground(Color.GRAY);
@@ -171,12 +177,14 @@ public class HotelCard extends JPanel {
 			dupPnl();
 		}
 		else {
+			
 			if(req.getRoomtype().equals("deluxe")) {
 				dupPnl();
 			}
 			else {
 				stdPnl();
 			}
+			
 		}
 		
 		if(bookingStatus == BOOKING) {
@@ -185,7 +193,18 @@ public class HotelCard extends JPanel {
 			btnViewHotel.setBounds(rightPanel.getSize().width - 152, 2, 150, 33);
 			btnViewHotel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					openHotelViewPage();
+					openHotelViewPage(1);
+				}
+			});
+			pnlHotelName.add(btnViewHotel,BorderLayout.NORTH);
+		}
+		else if(bookingStatus==-1) {
+			pnlHotelName.add(new JPanel());
+			btnViewHotel = new JButton("Enroll in waiting list");
+			btnViewHotel.setBounds(rightPanel.getSize().width - 152, 2, 150, 33);
+			btnViewHotel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					openHotelViewPage(-1);
 				}
 			});
 			pnlHotelName.add(btnViewHotel,BorderLayout.NORTH);
@@ -200,15 +219,16 @@ public class HotelCard extends JPanel {
 				}
 			});
 			pnlHotelName.add(btnViewHotel,BorderLayout.NORTH);
-			
-			btnModifyHotel = new JButton("Modify Booking");
-			btnModifyHotel.setBounds(rightPanel.getSize().width - 152, 2, 150, 33);
-			btnModifyHotel.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					bookingModify();
-				}
-			});
-			pnlHotelName.add(btnModifyHotel,BorderLayout.NORTH);
+			if(req.getRefId()!=0) {
+				btnModifyHotel = new JButton("Modify Booking");
+				btnModifyHotel.setBounds(rightPanel.getSize().width - 152, 2, 150, 33);
+				btnModifyHotel.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						bookingModify();
+					}
+				});
+				pnlHotelName.add(btnModifyHotel,BorderLayout.NORTH);
+			}
 		}
 	}
 	
@@ -279,15 +299,26 @@ public class HotelCard extends JPanel {
 	    jp.add(jl);
 	}
 	
-	private void openHotelViewPage() {
+	private void openHotelViewPage(int k) {
 		//setBackground(new Color((int)(Math.random() * 0x1000000)));
 		setBackground(Color.LIGHT_GRAY);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					SpecificHotelUI window = new SpecificHotelUI(BOOKING, hotel);
-					window.setVisible(true);
-				} catch (Exception e) {
+				try { if(k==1)
+					 { SpecificHotelUI window = new SpecificHotelUI(BOOKING, hotel);
+					   window.setVisible(true);
+					 }
+				else if(k==-1){
+					SpecificHotelUI window = new SpecificHotelUI(-1, hotel);
+					   window.setVisible(true);
+				}
+				else
+				{
+					SpecificHotelUI window = new SpecificHotelUI(VIEWING, hotel);
+					   window.setVisible(true);
+			
+				}
+			} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -311,7 +342,18 @@ public class HotelCard extends JPanel {
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Cannot cancel as check in date is less than 3 days away.");
+			int ans = JOptionPane.showConfirmDialog(null,"Cancellation charges -50% \n Do you want to cancel?");
+			if(ans == JOptionPane.YES_OPTION) {
+				// delete corresponding hotel for this user (portal.Main.LogInUser)
+				BookingDbManager bdb = new BookingDbManager(req);
+				bdb.cancelRoom();
+				Frame openWindows[] = Frame.getFrames();
+				for(Frame f : openWindows) {
+					f.dispose();
+				}
+				ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
+				window.frame.setVisible(true);
+			}
 		}
 	}
 	
@@ -335,7 +377,7 @@ public class HotelCard extends JPanel {
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Cannot cancel as check in date is less than 3 days away.");
+			JOptionPane.showMessageDialog(null, "Cannot Modify as check in date is less than 3 days away.");
 		}
 	}
 	

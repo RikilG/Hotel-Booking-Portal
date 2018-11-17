@@ -58,7 +58,7 @@ public class ModifyHotelUI extends JFrame {
 	 * Create the frame.
 	 */
 	public ModifyHotelUI(UserRequirements req) {
-		getContentPane().setBackground(new Color(192, 192, 192));
+		getContentPane().setBackground(new Color(184, 134, 11));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 720, 430);
 		getContentPane().setLayout(null);
@@ -84,20 +84,20 @@ public class ModifyHotelUI extends JFrame {
 		getContentPane().add(lblChangeNumberOf);
 		
 		JDateChooser checkin = new JDateChooser();
-		checkin.setBounds(499, 99, 113, 20);
+		checkin.setBounds(520, 100, 113, 20);
 		getContentPane().add(checkin);
 		checkin.setVisible(false);
 		
 		JDateChooser checkout = new JDateChooser();
-		checkout.setBounds(499, 144, 113, 20);
+		checkout.setBounds(520, 144, 113, 20);
 		getContentPane().add(checkout);
 		checkout.setVisible(false);
 		JLabel lblNewCheckinDate = new JLabel("New Checkin Date :");
-		lblNewCheckinDate.setBounds(360, 99, 123, 14);
+		lblNewCheckinDate.setBounds(391, 100, 98, 14);
 		getContentPane().add(lblNewCheckinDate);
 		
 		JLabel lblNewCheckoutDate = new JLabel("New Checkout Date  :");
-		lblNewCheckoutDate.setBounds(360, 144, 130, 14);
+		lblNewCheckoutDate.setBounds(391, 150, 119, 14);
 		getContentPane().add(lblNewCheckoutDate);
 		lblNewCheckoutDate.setVisible(false);
 		lblNewCheckinDate.setVisible(false);
@@ -132,16 +132,16 @@ public class ModifyHotelUI extends JFrame {
 					}
 			}
 		});
-		btnDate.setBounds(275, 95, 64, 23);
+		btnDate.setBounds(275, 95, 89, 23);
 		getContentPane().add(btnDate);
 		
 			
 		JLabel lblNumberOfRooms = new JLabel("number of rooms to be booked   :");
-		lblNumberOfRooms.setBounds(345, 203, 206, 14);
+		lblNumberOfRooms.setBounds(391, 206, 169, 14);
 		getContentPane().add(lblNumberOfRooms);
 		
 		tfRoom = new JTextField();
-		tfRoom.setBounds(547, 200, 86, 20);
+		tfRoom.setBounds(587, 197, 86, 20);
 		getContentPane().add(tfRoom);
 		tfRoom.setColumns(10);
 		tfRoom.setVisible(false);
@@ -150,20 +150,26 @@ public class ModifyHotelUI extends JFrame {
 		JCheckBox btnRoom = new JCheckBox("YES");
 		btnRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(btnRoom.isSelected()) {
 				tfRoom.setVisible(true);
 				lblNumberOfRooms.setVisible(true);
+				}
+				if(!btnRoom.isSelected()) {
+					tfRoom.setVisible(false);
+					lblNumberOfRooms.setVisible(false);
+					}
 			}
 		});
 
-		btnRoom.setBounds(275, 199, 64, 23);
+		btnRoom.setBounds(275, 199, 89, 23);
 		getContentPane().add(btnRoom);
 		
 		JLabel lblPleaeEnterNumber = new JLabel("no of incomming people   :");
-		lblPleaeEnterNumber.setBounds(345, 255, 169, 14);
+		lblPleaeEnterNumber.setBounds(391, 256, 130, 14);
 		getContentPane().add(lblPleaeEnterNumber);
 		
 		tfPeople = new JTextField();
-		tfPeople.setBounds(515, 252, 86, 20);
+		tfPeople.setBounds(587, 253, 86, 20);
 		getContentPane().add(tfPeople);
 		tfPeople.setColumns(10);
 		tfPeople.setVisible(false);
@@ -173,11 +179,17 @@ public class ModifyHotelUI extends JFrame {
 		JCheckBox btnPeople = new JCheckBox("YES");
 		btnPeople.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(btnPeople.isSelected()) {
 				tfPeople.setVisible(true);
 				lblPleaeEnterNumber.setVisible(true);
+				}
+				if(!btnPeople.isSelected()) {
+					tfPeople.setVisible(false);
+					lblPleaeEnterNumber.setVisible(false);
+					}
 			}
 		});
-		btnPeople.setBounds(275, 251, 64, 23);
+		btnPeople.setBounds(275, 251, 89, 23);
 		getContentPane().add(btnPeople);
 		
 		JButton btnConfirmChanges = new JButton("Confirm Changes");
@@ -243,8 +255,14 @@ public class ModifyHotelUI extends JFrame {
 		JCheckBox typeRoom = new JCheckBox("YES");
 		typeRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(typeRoom.isSelected()) {
 				rdbtnStanardRoom.setVisible(true);
 				rdbtnDeluxeRoom.setVisible(true);
+				}
+				if(!typeRoom.isSelected()) {
+					rdbtnStanardRoom.setVisible(false);
+					rdbtnDeluxeRoom.setVisible(false);
+					}
 			}
 		});
 		btnConfirmChanges.addActionListener(new ActionListener() {
@@ -289,7 +307,7 @@ public class ModifyHotelUI extends JFrame {
 				//dispose();
 			}
 		});
-		typeRoom.setBounds(275, 299, 64, 25);
+		typeRoom.setBounds(275, 299, 113, 25);
 		getContentPane().add(typeRoom);
 		
 		
