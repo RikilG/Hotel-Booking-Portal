@@ -6,7 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import definitions.EnvironmentVariables;
 import definitions.Hotel;
+import definitions.UserRequirements;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -21,9 +23,13 @@ import javax.swing.JOptionPane;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
+
+import dbManagers.BookingDbManager;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -36,6 +42,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 	final static int VIEWING = 0;
 
 	Hotel hotel;
+	int viewStatus;
 	
 	JButton btnStandardRoom;
 	JButton btnDeluxeRoom;
@@ -59,8 +66,9 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public SpecificHotelUI(int viewStatus,Hotel hotel) {
-		getContentPane().setBackground(new Color(169, 169, 169));
+		getContentPane().setBackground(new Color(102, 205, 170));
 		this.hotel = hotel;
+		this.viewStatus=viewStatus;
 		getContentPane().setForeground(Color.BLUE);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(130, 130, 800, 600);
@@ -68,12 +76,12 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		
 		JPanel header = new JPanel();
 		header.setBounds(0, 0, getWidth()-18, 50);
-		header.setBackground(new Color(210, 105, 30));
+		header.setBackground(new Color(127, 255, 0));
 		header.setLayout(new BorderLayout(0, 0));
 		getContentPane().add(header, BorderLayout.NORTH);
 		
 		JPanel pnlContent = new JPanel();
-		pnlContent.setBackground(new Color(244, 164, 96));
+		pnlContent.setBackground(new Color(221, 160, 221));
 		pnlContent.setBounds(10, 63, 760, 477);
 		getContentPane().add(pnlContent);
 		pnlContent.setLayout(new BorderLayout(0, 0));
@@ -115,7 +123,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		header.add(ivProfile,BorderLayout.EAST);
 		
 		JPanel ivPane = new JPanel();
-		ivPane.setBackground(new Color(244, 164, 96));
+		ivPane.setBackground(new Color(238, 232, 170));
 		ivPane.setLayout(null);
 		ivPane.setSize(new Dimension(250,pnlContent.getHeight()));
 		ivPane.setPreferredSize(new Dimension(250,pnlContent.getHeight()));
@@ -129,7 +137,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		pnlContent.add(ivPane,BorderLayout.WEST);
 		
 		JPanel pnlHotelTitle = new JPanel();
-		pnlHotelTitle.setBackground(new Color(184, 134, 11));
+		pnlHotelTitle.setBackground(new Color(102, 205, 170));
 		pnlContent.add(pnlHotelTitle, BorderLayout.NORTH);
 		
 		JLabel lblHotel = new JLabel("ABC  Hotel");
@@ -140,7 +148,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblHotel.setText(hotel.getName());
 		
 		JPanel pnlAmenities = new JPanel();
-		pnlAmenities.setBackground(new Color(143, 188, 143));
+		pnlAmenities.setBackground(new Color(238, 232, 170));
 		pnlContent.add(pnlAmenities, BorderLayout.CENTER);
 		pnlAmenities.setLayout(null);
 		
@@ -153,8 +161,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblHotelAmenities.setText(hotel.getAmenitiesList());
 		
 		JPanel pnlReviews = new JPanel();
-		pnlReviews.setBackground(new Color(169, 169, 169));
-		pnlReviews.setForeground(new Color(0, 0, 0));
+		pnlReviews.setBackground(new Color(238, 232, 170));
 		pnlReviews.setPreferredSize(new Dimension(150, 400));
 		pnlReviews.setMinimumSize(new Dimension(150, 400));
 		pnlContent.add(pnlReviews, BorderLayout.EAST);
@@ -165,11 +172,13 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		pnlReviews.add(pnlRating);
 		
 		JLabel lblOverallRatings = new JLabel("Overall Rating ");
+		lblOverallRatings.setBackground(new Color(238, 232, 170));
 		lblOverallRatings.setFont(new Font("Tahoma", Font.BOLD, 13));
 		pnlRating.add(lblOverallRatings);
 		lblOverallRatings.setBounds(527, 393, 100, 14);
 		
 		JLabel lblRatingsNo = new JLabel("4.0");
+		lblRatingsNo.setBackground(new Color(238, 232, 170));
 		lblRatingsNo.setFont(new Font("Lucida Sans Unicode", Font.BOLD, 22));
 //		String temp = " ";
 //		for(int i=0;i<Integer.parseInt(hotel.getRating());i++) {
@@ -182,6 +191,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 //		lblRatingsNo.setText(temp);
 		
 		JPanel emptyPanel = new JPanel();
+		emptyPanel.setBackground(new Color(238, 232, 170));
 		pnlReviews.add(emptyPanel);
 		
 		JPanel pnlFeedbacks = new JPanel();
@@ -201,16 +211,18 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblFeedbackNo.setText(hotel.getFeedbackNo());
 		
 		JPanel emptyPanel2 = new JPanel();
+		emptyPanel2.setBackground(new Color(238, 232, 170));
 		pnlReviews.add(emptyPanel2);
 		
 		JPanel emptyPanel3 = new JPanel();
+		emptyPanel3.setBackground(new Color(238, 232, 170));
 		pnlReviews.add(emptyPanel3);
 		
 		JPanel pnlButtons = new JPanel();
-		pnlButtons.setBackground(new Color(205, 133, 63));
+		pnlButtons.setBackground(new Color(238, 232, 170));
 		pnlContent.add(pnlButtons, BorderLayout.SOUTH);
 		
-		//if(viewStatus == BOOKING) {
+		if(viewStatus == BOOKING) {
 			btnStandardRoom = new JButton("Book Standard");
 			pnlButtons.add(btnStandardRoom);
 			
@@ -218,31 +230,66 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 			pnlButtons.add(btnDeluxeRoom);
 			btnDeluxeRoom.addActionListener(this);
 			btnStandardRoom.addActionListener(this);
-		//}
+		}
+		
+		if(viewStatus == -1) {
+			btnStandardRoom = new JButton("Enroll in Standard");
+			pnlButtons.add(btnStandardRoom);
+			
+			btnDeluxeRoom = new JButton("Enroll in Deluxe");
+			pnlButtons.add(btnDeluxeRoom);
+			btnDeluxeRoom.addActionListener(this);
+			btnStandardRoom.addActionListener(this);
+		}
 		
 	}
 	
 	public void actionPerformed(ActionEvent ae) {
 		int result;
 		if(btnStandardRoom.isFocusOwner()) {
+			if(viewStatus == BOOKING) {
 			result = JOptionPane.showConfirmDialog(null, "Do You Want to Book a Standard room in this hotel?");
 			if(result == JOptionPane.YES_OPTION) {
 				portal.Main.userRequirements.setRoomtype("standard");
 				portal.Main.userRequirements.setHotel(hotel);
-				HotelBookingUI window = new HotelBookingUI(hotel);
+				HotelBookingUI window = new HotelBookingUI(hotel,1);
 				window.frame.setVisible(true);
 				dispose();
+			   }
+			}
+			else {
+			     result=JOptionPane.showConfirmDialog(null, "Do You Want to enroll in a Standard room in this hotel?");
+			     if(result == JOptionPane.YES_OPTION) {
+			    		portal.Main.userRequirements.setRoomtype("standard");
+						portal.Main.userRequirements.setHotel(hotel);
+						HotelBookingUI window = new HotelBookingUI(hotel,-1);
+						window.frame.setVisible(true);
+						dispose();
+					}
+			     
 			}
 		}
 		else if(btnDeluxeRoom.isFocusOwner()) {
+			if(viewStatus == BOOKING) {
 			result = JOptionPane.showConfirmDialog(null, "Do You Want to Book a Deluxe room in this hotel?");
 			if(result == JOptionPane.YES_OPTION) {
 				portal.Main.userRequirements.setRoomtype("deluxe");
 				portal.Main.userRequirements.setHotel(hotel);
-				HotelBookingUI window = new HotelBookingUI(hotel);
+				HotelBookingUI window = new HotelBookingUI(hotel,1);
 				window.frame.setVisible(true);
 				dispose();
 			}
+		  }
+			else {
+				 result=JOptionPane.showConfirmDialog(null, "Do You Want to enroll in a Deluxe room in this hotel?");
+			     if(result == JOptionPane.YES_OPTION) {
+			    		portal.Main.userRequirements.setRoomtype("deluxe");
+						portal.Main.userRequirements.setHotel(hotel);
+						HotelBookingUI window = new HotelBookingUI(hotel,-1);
+						window.frame.setVisible(true);
+						dispose();
+			     }
+			  }
+			}
 		}
 	}
-}

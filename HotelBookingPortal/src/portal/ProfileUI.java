@@ -36,6 +36,7 @@ public class ProfileUI {
 
 	private HotelDbManager hotelDb;
 	private ArrayList<UserRequirements> hotelList;
+	private ArrayList<UserRequirements> waitList;
 	private Customer user;
 	
 	public JFrame frame;
@@ -68,6 +69,7 @@ public class ProfileUI {
 	private JButton btnBookHotel;
 	private JPanel panel_4;
 	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_4;
 
 	/**
 	 * Launch the application.
@@ -105,9 +107,9 @@ public class ProfileUI {
 	private void initialize() {
 		BookingDbManager bdb = new BookingDbManager();
 		hotelList = bdb.userBookedHotels(portal.Main.logInCustomer.getId());
+		waitList= bdb.userWaitlistHotels(portal.Main.logInCustomer.getId());
 		
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(210, 105, 30));
 		spanel = new JPanel();
 		spanel.setBackground(new Color(204, 153, 0));
 		scrollPane = new JScrollPane(spanel);
@@ -185,7 +187,7 @@ public class ProfileUI {
 		lblNewLabel_2 = new JLabel("Booked Hotels");
 		lblNewLabel_2.setBackground(new Color(204, 102, 51));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_4.add(lblNewLabel_2);
 		
 		lblNewLabel_1 = new JLabel("aaaaaaaaaaaaaaaaa");
@@ -248,7 +250,7 @@ public class ProfileUI {
 //		{
 //			lblNewLabel=new JLabel("Welcome"+user.getName());
 //		}
-		lblNewLabel =new JLabel("Hello,"+user.getUsername());
+		lblNewLabel =new JLabel("Hello, "+user.getUsername());
 		lblNewLabel.setFont(new Font("Century Gothic", Font.BOLD, 14));
 		panel_1.add(lblNewLabel);
 		
@@ -291,9 +293,30 @@ public class ProfileUI {
 				spanel.add(new HotelCard(h.getHotel(),HotelCard.VIEWING,h));
 			}
 		}
+
+
+		JPanel test = new JPanel();
+		test.setBackground(new Color(205, 133, 63));
+		lblNewLabel_4 = new JLabel("Waiting List Hotels");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
+		test.add(lblNewLabel_4);
+		spanel.add(test);
+		
+		if(waitList.size() > 0) {
+			for(UserRequirements h:waitList) {
+				spanel.add(new JPanel());
+				//System.out.println(h.getRoomtype());
+				spanel.add(new HotelCard(h.getHotel(),HotelCard.VIEWING,h));
+			}
+		}
+		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(205, 133, 63));
+		spanel.add(panel_6);
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(204, 102, 0));
 		spanel.add(panel_5);
+
 		frame.getContentPane().add(scrollPane);
 	}
 	

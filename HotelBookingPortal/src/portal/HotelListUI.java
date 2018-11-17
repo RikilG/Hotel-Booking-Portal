@@ -1,3 +1,4 @@
+
 package portal;
 
 import java.awt.BorderLayout;
@@ -7,6 +8,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import static javax.swing.ScrollPaneConstants.*;
@@ -34,6 +36,9 @@ public class HotelListUI {
 	private HotelDbManager hotelDb;
 	private Hotel hotelList[];
 	private String cityName;
+	
+	BookingDbManager hello;
+	BookingDbManager bdb2;
 	
 	public JFrame frame;
 	private JPanel panel;
@@ -80,10 +85,9 @@ public class HotelListUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		int flag=0;
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(143, 188, 143));
 		panel = new JPanel();
-		panel.setBackground(new Color(255, 215, 0));
 		scrollPane = new JScrollPane(panel);
 		
 		//frame.setResizable(false);
@@ -97,7 +101,7 @@ public class HotelListUI {
 		
 		header = new JPanel();
 		header.setLayout(new BorderLayout());
-		header.setBackground(new Color(128, 128, 0));
+		header.setBackground(new Color(255, 102, 0));
 		header.setPreferredSize(new Dimension(frame.getWidth()-18,50));
 		header.setMinimumSize(new Dimension(frame.getWidth()-18,50));
 		header.setMaximumSize(new Dimension(frame.getWidth(),50));
@@ -105,7 +109,7 @@ public class HotelListUI {
 		
 		title = new JLabel("Available hotels based on User selection. Please select one to continue :");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		title.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		header.add(title,BorderLayout.CENTER);
 		
 		JLabel ivback = new JLabel("Go Back");
@@ -141,17 +145,36 @@ public class HotelListUI {
 		header.add(ivProfile,BorderLayout.EAST);
 		
 		for(Hotel h:hotelList) {
-			BookingDbManager bdb1 = new BookingDbManager(h,"duplex",req);
-			BookingDbManager bdb2 = new BookingDbManager(h,"standard",req);
-			if(bdb1.getRooms()>0 || bdb2.getRooms()>0) {
+			UserRequirements u = req;
+			bdb2 = new BookingDbManager(h,"standard",u);
+			hello = new BookingDbManager(h,"deluxe",u);
+			//System.out.println(hello.ur.getRoomtype());
+			//System.out.println(bdb2.ur.getRoomtype());
+			if(hello.getRooms()>=0 || bdb2.getRooms()>=0) {
+			  int a=  (hello.getRooms());
+				a= (bdb2.getRooms());
+				flag=1;
 				panel.add(new JPanel());
-				panel.add(new HotelCard(h, HotelCard.BOOKING/*,(HotelListUI)this*/));
+				panel.add(new HotelCard(h, HotelCard.BOOKING));
 			}
 		}
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(154, 205, 50));
-		panel.add(panel_1);
+		if(flag==1) {
+		panel.add(new JPanel());
 		frame.getContentPane().add(scrollPane);
+		}
+		if(flag==0) {
+			int a=JOptionPane.showConfirmDialog(null,"No hotels are available for selected dates/rooms.Do you want to enroll in waiting list?");
+			if(a==JOptionPane.OK_OPTION) {
+				for(Hotel h:hotelList) {
+					panel.add(new JPanel());
+					panel.add(new HotelCard(h,-1,req));
+                    panel.add(new JPanel());
+					frame.getContentPane().add(scrollPane);
+					}
+				}
+						
+			}
+		}
 	}
 
-}
+

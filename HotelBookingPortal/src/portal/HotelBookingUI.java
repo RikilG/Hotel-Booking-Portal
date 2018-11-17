@@ -45,6 +45,7 @@ public class HotelBookingUI {
 
 	public JFrame frame;
 	private Hotel hotel;
+	int mode;
 	private UserRequirements req;
 	private JPanel panel;
 	private JTextField txtVerificationno;
@@ -59,7 +60,7 @@ public class HotelBookingUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HotelBookingUI window = new HotelBookingUI(new Hotel());
+					HotelBookingUI window = new HotelBookingUI(new Hotel(),1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,7 +72,7 @@ public class HotelBookingUI {
 	/**
 	 * Create the application.
 	 */
-	public HotelBookingUI(Hotel hotel) {
+	public HotelBookingUI(Hotel hotel,int mode) {
 		this.req = portal.Main.userRequirements;
 		this.hotel = hotel;
 		Frame openWindows[] = Frame.getFrames();
@@ -80,6 +81,7 @@ public class HotelBookingUI {
 				f.dispose();
 			}
 		}
+		this.mode=mode;
 		initialize();
 	}
 
@@ -88,7 +90,7 @@ public class HotelBookingUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(112, 128, 144));
+		frame.getContentPane().setBackground(new Color(30, 144, 255));
 		frame.setBounds(200, 200, 900, 570);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -96,19 +98,19 @@ public class HotelBookingUI {
 		frame.setResizable(false);
 		
 		panel = new JPanel();
-		panel.setBackground(new Color(175, 238, 238));
+		panel.setBackground(new Color(60, 179, 113));
 		panel.setBounds(0,0,frame.getWidth(),frame.getHeight()-40);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JPanel header = new JPanel();
 		header.setBounds(0, 0, panel.getWidth()-5, 50);
-		header.setBackground(new Color(123, 104, 238));
+		header.setBackground(new Color(221, 160, 221));
 		header.setLayout(new BorderLayout(0, 0));
 		panel.add(header, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel = new JLabel("Hotel Info");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNewLabel.setFont(new Font("Century Schoolbook", Font.BOLD, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(lblNewLabel, BorderLayout.CENTER);
 		
@@ -128,6 +130,8 @@ public class HotelBookingUI {
 //					}
 //				});
 				frame.dispose();
+				ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
+				window.frame.setVisible(true);
 			}
 		});
 		header.add(ivback, BorderLayout.WEST);
@@ -142,20 +146,21 @@ public class HotelBookingUI {
 			}
 		});
 		header.add(ivProfile,BorderLayout.EAST);
-		
+
 		JPanel rbtnPanel = new JPanel();
-		rbtnPanel.setBackground(new Color(50, 205, 50));
+		rbtnPanel.setBackground(new Color(238, 232, 170));
 		rbtnPanel.setBounds(225, 375, 450, 41);
 		panel.add(rbtnPanel);
 		rbtnPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		rdbtnAadhaar = new JRadioButton("Aadhaar No");
+
 		rdbtnAadhaar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				rdbtnPanCard.setSelected(false);
 			}
 		});
-		rdbtnAadhaar.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		rdbtnAadhaar.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		rdbtnAadhaar.setSelected(true);
 		rdbtnAadhaar.setHorizontalAlignment(SwingConstants.CENTER);
 		rbtnPanel.add(rdbtnAadhaar);
@@ -172,12 +177,13 @@ public class HotelBookingUI {
 				rdbtnAadhaar.setSelected(false);
 			}
 		});
-		rdbtnPanCard.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		rdbtnPanCard.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		rdbtnPanCard.setHorizontalAlignment(SwingConstants.CENTER);
 		rbtnPanel.add(rdbtnPanCard);
 		
 		JButton btnBookNow = new JButton("Book Now");
-		btnBookNow.setBackground(new Color(244, 164, 96));
+		if(mode==-1)
+			btnBookNow.setText("Enroll now");
 		btnBookNow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(rdbtnPanCard.isSelected()) {
@@ -209,22 +215,22 @@ public class HotelBookingUI {
 		panel.add(btnBookNow);
 		
 		pnlHotelView = new JPanel();
-		pnlHotelView.setBackground(new Color(218, 165, 32));
 		pnlHotelView.setBounds(12, 76, 868, 286);
 		panel.add(pnlHotelView);
 		pnlHotelView.setLayout(new BorderLayout(0, 0));
 		
 		JPanel pnlHotelName = new JPanel();
-		pnlHotelName.setBackground(new Color(152, 251, 152));
+		pnlHotelName.setBackground(new Color(238, 232, 170));
 		pnlHotelView.add(pnlHotelName, BorderLayout.NORTH);
 		pnlHotelName.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblHotelName = new JLabel("Hotel Name");
-		lblHotelName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblHotelName.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblHotelName.setText(req.getHotel().getName());
 		pnlHotelName.add(lblHotelName);
 		
 		JPanel pnlHotelIv = new JPanel();
-		pnlHotelIv.setBackground(new Color(152, 251, 152));
+		pnlHotelIv.setBackground(new Color(238, 232, 170));
 		pnlHotelView.add(pnlHotelIv, BorderLayout.WEST);
 		pnlHotelIv.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -232,12 +238,11 @@ public class HotelBookingUI {
 		pnlHotelIv.add(IvHotel);
 		
 		JPanel pnlUserReq = new JPanel();
-		pnlUserReq.setBackground(new Color(152, 251, 152));
 		pnlHotelView.add(pnlUserReq, BorderLayout.CENTER);
 		pnlUserReq.setLayout(new BoxLayout(pnlUserReq, BoxLayout.Y_AXIS));
 		
 		JPanel pnlCity = new JPanel();
-		pnlCity.setBackground(new Color(152, 251, 152));
+		pnlCity.setBackground(new Color(238, 232, 170));
 		pnlUserReq.add(pnlCity);
 		
 		JLabel lblCity = new JLabel("City Name : ");
@@ -247,7 +252,7 @@ public class HotelBookingUI {
 		pnlCity.add(lblScity);
 		
 		JPanel pnlRoomType = new JPanel();
-		pnlRoomType.setBackground(new Color(152, 251, 152));
+		pnlRoomType.setBackground(new Color(238, 232, 170));
 		pnlUserReq.add(pnlRoomType);
 		
 		JLabel lblRoomType = new JLabel("Room Type : ");
@@ -257,7 +262,7 @@ public class HotelBookingUI {
 		pnlRoomType.add(lblSroomType);
 		
 		JPanel pnlChkIn = new JPanel();
-		pnlChkIn.setBackground(new Color(152, 251, 152));
+		pnlChkIn.setBackground(new Color(238, 232, 170));
 		pnlUserReq.add(pnlChkIn);
 		
 		JLabel lblChkin = new JLabel("Check In Date : ");
@@ -267,7 +272,7 @@ public class HotelBookingUI {
 		pnlChkIn.add(lblSchkin);
 		
 		JPanel pnlChkOut = new JPanel();
-		pnlChkOut.setBackground(new Color(152, 251, 152));
+		pnlChkOut.setBackground(new Color(238, 232, 170));
 		pnlUserReq.add(pnlChkOut);
 		
 		JLabel lblChkout = new JLabel("Check Out Date : ");
@@ -277,7 +282,7 @@ public class HotelBookingUI {
 		pnlChkOut.add(lblSchkout);
 		
 		JPanel pnlRooms = new JPanel();
-		pnlRooms.setBackground(new Color(152, 251, 152));
+		pnlRooms.setBackground(new Color(238, 232, 170));
 		pnlUserReq.add(pnlRooms);
 		
 		JLabel lblRooms = new JLabel("Rooms : ");
@@ -287,7 +292,7 @@ public class HotelBookingUI {
 		pnlRooms.add(lblSrooms);
 		
 		JPanel pnlPersons = new JPanel();
-		pnlPersons.setBackground(new Color(152, 251, 152));
+		pnlPersons.setBackground(new Color(238, 232, 170));
 		pnlUserReq.add(pnlPersons);
 		
 		JLabel lblPersons = new JLabel("No of Persons : ");
@@ -296,8 +301,17 @@ public class HotelBookingUI {
 		JLabel lblSpersons = new JLabel("spersons");
 		pnlPersons.add(lblSpersons);
 		
+		JPanel pnlCost = new JPanel();
+		pnlCost.setBackground(new Color(238, 232, 170));
+		pnlUserReq.add(pnlCost);
+		
+		JLabel lblCost = new JLabel("Cost : ");
+		pnlCost.add(lblCost);
+		
+		JLabel lblScost = new JLabel("scost");
+		pnlCost.add(lblScost);
+		
 		JPanel pnlVerfNo = new JPanel();
-		pnlVerfNo.setBackground(new Color(152, 251, 152));
 		pnlVerfNo.setBounds(0, 423, frame.getWidth()-5, 40);
 		panel.add(pnlVerfNo);
 		
@@ -306,7 +320,6 @@ public class HotelBookingUI {
 		pnlVerfNo.add(lblEnterAadharpanHere);
 		
 		txtVerificationno = new JTextField();
-		txtVerificationno.setBackground(new Color(240, 255, 240));
 		pnlVerfNo.add(txtVerificationno);
 		txtVerificationno.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtVerificationno.setHorizontalAlignment(SwingConstants.CENTER);
@@ -324,15 +337,30 @@ public class HotelBookingUI {
 		lblSchkout.setText(format.format(chkiout));
 		lblSrooms.setText(Integer.toString(req.getRooms()));
 		lblSpersons.setText(Integer.toString(req.getPersons()));
+		int cost;
+		if(req.getRoomtype().equals("deluxe")) {
+			cost = req.getRooms()*Integer.parseInt(req.getHotel().getDupCost())*(int)((req.getCheckout()-req.getCheckin())/86400000);
+		}
+		else {
+			cost = req.getRooms()*Integer.parseInt(req.getHotel().getCost());
+		}
+		lblScost.setText(Integer.toString(cost));
 		
 	}
 	
 	private void contBooking() {
 		long refId = new Date().getTime()/1000;
+		BookingDbManager bdb = new BookingDbManager(req);
+		if(mode==1) {
 		JOptionPane.showMessageDialog(null, "<html>Booking reference no : " + Long.toString(refId)+"<br>Thank you.");
 		req.setRefId(refId);
-		BookingDbManager bdb = new BookingDbManager(req);
 		bdb.bookRoom();
+		}
+		if(mode==-1) {
+			JOptionPane.showMessageDialog(null,"Successfully enrolled in waiting list");
+			req.setRefId(0);
+			bdb.enrollWaitingList();
+		}
 		frame.dispose();
 		ProfileUI window = new ProfileUI(EnvironmentVariables.BOOKING);
 		window.frame.setVisible(true);

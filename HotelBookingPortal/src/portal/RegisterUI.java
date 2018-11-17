@@ -78,7 +78,7 @@ public class RegisterUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(176, 224, 230));
+		frame.getContentPane().setBackground(new Color(175, 238, 238));
 		frame.getContentPane().setForeground(new Color(0, 0, 0));
 		frame.setBounds(100, 100, 600, 640);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,7 +100,7 @@ public class RegisterUI {
 		frame.getContentPane().add(lblName);
 		
 		tfName = new JTextField();
-		tfName.setBackground(new Color(250, 250, 210));
+		tfName.setBackground(new Color(255, 239, 213));
 		tfName.setBounds(186, 127, 280, 23);
 		frame.getContentPane().add(tfName);
 		tfName.setColumns(10);
@@ -126,13 +126,13 @@ public class RegisterUI {
 		frame.getContentPane().add(lblEmailId);
 		
 		tfUsername = new JTextField();
-		tfUsername.setBackground(new Color(250, 250, 210));
+		tfUsername.setBackground(new Color(255, 239, 213));
 		tfUsername.setBounds(186, 199, 280, 23);
 		frame.getContentPane().add(tfUsername);
 		tfUsername.setColumns(10);
 		
 		tfEmailId = new JTextField();
-		tfEmailId.setBackground(new Color(250, 250, 210));
+		tfEmailId.setBackground(new Color(255, 239, 213));
 		tfEmailId.setBounds(186, 311, 280, 23);
 		frame.getContentPane().add(tfEmailId);
 		tfEmailId.setColumns(10);
@@ -143,7 +143,7 @@ public class RegisterUI {
 		frame.getContentPane().add(lblResedentialAdress);
 		
 		taAddress = new JTextArea();
-		taAddress.setBackground(new Color(250, 250, 210));
+		taAddress.setBackground(new Color(255, 239, 213));
 		taAddress.setBounds(186, 403, 280, 53);
 		frame.getContentPane().add(taAddress);
 		
@@ -153,12 +153,12 @@ public class RegisterUI {
 		frame.getContentPane().add(lblDateOfBirth);
 		
 		setpasswordField = new JPasswordField();
-		setpasswordField.setBackground(new Color(250, 250, 210));
+		setpasswordField.setBackground(new Color(255, 239, 213));
 		setpasswordField.setBounds(186, 236, 280, 20);
 		frame.getContentPane().add(setpasswordField);
 		
 		confirmpasswordField = new JPasswordField();
-		confirmpasswordField.setBackground(new Color(250, 250, 210));
+		confirmpasswordField.setBackground(new Color(255, 239, 213));
 		confirmpasswordField.setBounds(186, 271, 280, 20);
 		frame.getContentPane().add(confirmpasswordField);
 		
@@ -172,12 +172,13 @@ public class RegisterUI {
 		frame.getContentPane().add(lblIAmNot);
 		
 		tfVerifyAns = new JTextField();
-		tfVerifyAns.setBackground(new Color(250, 250, 210));
+		tfVerifyAns.setBackground(new Color(255, 239, 213));
 		tfVerifyAns.setBounds(255, 467, 86, 23);
 		frame.getContentPane().add(tfVerifyAns);
 		tfVerifyAns.setColumns(10);
 		
 		JCheckBox chckbxAgreeTnC = new JCheckBox("I agree to the Terms and conditions of using this software.");
+		chckbxAgreeTnC.setBackground(new Color(255, 239, 213));
 		chckbxAgreeTnC.setForeground(new Color(102, 0, 0));
 		chckbxAgreeTnC.setBounds(106, 517, 373, 25);
 		frame.getContentPane().add(chckbxAgreeTnC);
@@ -215,6 +216,7 @@ public class RegisterUI {
 		generateRandom(lblText);
 		
 		JCheckBox chckbxVerify = new JCheckBox("Verify");
+		chckbxVerify.setBackground(new Color(255, 239, 213));
 		chckbxVerify.setBounds(186, 491, 83, 23);
 		frame.getContentPane().add(chckbxVerify);
 		
@@ -278,7 +280,7 @@ public class RegisterUI {
 //		d1.setMonth(11);
 //		d1.setYear(1909);
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBackground(new Color(250, 250, 210));
+		dateChooser.setBackground(new Color(255, 239, 213));
 		dateChooser.setDateFormatString("d MMM yyyy");
 		dateChooser.setForeground(Color.BLACK);
 		dateChooser.setToolTipText("");
@@ -315,7 +317,7 @@ public class RegisterUI {
 		frame.getContentPane().add(lblMobileNumber);
 		
 		txtMobile = new JTextField();
-		txtMobile.setBackground(new Color(250, 250, 210));
+		txtMobile.setBackground(new Color(255, 239, 213));
 		txtMobile.setBounds(186, 355, 280, 20);
 		frame.getContentPane().add(txtMobile);
 		txtMobile.setColumns(10);
