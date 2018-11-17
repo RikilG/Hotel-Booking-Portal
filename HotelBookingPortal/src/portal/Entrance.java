@@ -45,11 +45,13 @@ public class Entrance extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 600);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(105, 105, 105));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 239, 213));
 		panel.setBounds(10, 54, 574, 26);
 		contentPane.add(panel);
 		
@@ -60,6 +62,7 @@ public class Entrance extends JFrame {
 		lblWelcomeToBirla.setForeground(Color.BLUE);
 		
 		JTextPane txtpnWelcomeToAn = new JTextPane();
+		txtpnWelcomeToAn.setBackground(new Color(255, 239, 213));
 		txtpnWelcomeToAn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		String str = "*Find Best Hotels of your choice that we provide";
 		String str1 = "*Hotel Booking is completely free";
@@ -67,6 +70,7 @@ public class Entrance extends JFrame {
 		txtpnWelcomeToAn.setEditable(false);
 		
 		JButton btnBookAHotel = new JButton("Book a Hotel");
+		btnBookAHotel.setBackground(new Color(244, 164, 96));
 		btnBookAHotel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

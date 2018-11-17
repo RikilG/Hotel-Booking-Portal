@@ -81,7 +81,9 @@ public class HotelListUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(143, 188, 143));
 		panel = new JPanel();
+		panel.setBackground(new Color(255, 215, 0));
 		scrollPane = new JScrollPane(panel);
 		
 		//frame.setResizable(false);
@@ -95,7 +97,7 @@ public class HotelListUI {
 		
 		header = new JPanel();
 		header.setLayout(new BorderLayout());
-		header.setBackground(new Color(255, 102, 0));
+		header.setBackground(new Color(128, 128, 0));
 		header.setPreferredSize(new Dimension(frame.getWidth()-18,50));
 		header.setMinimumSize(new Dimension(frame.getWidth()-18,50));
 		header.setMaximumSize(new Dimension(frame.getWidth(),50));
@@ -146,7 +148,9 @@ public class HotelListUI {
 				panel.add(new HotelCard(h, HotelCard.BOOKING/*,(HotelListUI)this*/));
 			}
 		}
-		panel.add(new JPanel());
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(154, 205, 50));
+		panel.add(panel_1);
 		frame.getContentPane().add(scrollPane);
 	}
 

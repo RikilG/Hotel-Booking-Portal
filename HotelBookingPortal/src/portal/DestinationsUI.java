@@ -69,8 +69,8 @@ public class DestinationsUI implements ActionListener {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
+		frame = new JFrame("Tour Selection");
+		frame.getContentPane().setBackground(new Color(107, 142, 35));
 		frame.setBounds(100, 100, 900, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -94,7 +94,8 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JRadioButton radioButton = new JRadioButton("");
-		radioButton.setBackground(Color.WHITE);
+		radioButton.setForeground(new Color(0, 0, 0));
+		radioButton.setBackground(new Color(189, 183, 107));
 		radioButton.setBounds(34, 115, 21, 23);
 		frame.getContentPane().add(radioButton);
 		radioButton.setActionCommand("Ahmedabad");
@@ -106,7 +107,8 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(label);
 		
 		JRadioButton radioButton_1 = new JRadioButton("");
-		radioButton_1.setBackground(Color.WHITE);
+		radioButton_1.setForeground(new Color(0, 0, 0));
+		radioButton_1.setBackground(new Color(189, 183, 107));
 		radioButton_1.setBounds(380, 115, 21, 23);
 		frame.getContentPane().add(radioButton_1);
 		radioButton_1.setActionCommand("Hyderabad");
@@ -118,7 +120,8 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(label_1);
 		
 		JRadioButton radioButton_2 = new JRadioButton("");
-		radioButton_2.setBackground(Color.WHITE);
+		radioButton_2.setForeground(new Color(0, 0, 0));
+		radioButton_2.setBackground(new Color(189, 183, 107));
 		radioButton_2.setBounds(726, 115, 21, 23);
 		frame.getContentPane().add(radioButton_2);
 		radioButton_2.setActionCommand("Chennai");
@@ -130,7 +133,8 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(label_2);
 		
 		JRadioButton radioButton_3 = new JRadioButton("");
-		radioButton_3.setBackground(Color.WHITE);
+		radioButton_3.setForeground(new Color(0, 0, 0));
+		radioButton_3.setBackground(new Color(189, 183, 107));
 		radioButton_3.setBounds(34, 233, 21, 23);
 		frame.getContentPane().add(radioButton_3);
 		radioButton_3.setActionCommand("Mumbai");
@@ -142,7 +146,7 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(label_3);
 		
 		JRadioButton radioButton_4 = new JRadioButton("");
-		radioButton_4.setBackground(Color.WHITE);
+		radioButton_4.setBackground(new Color(189, 183, 107));
 		radioButton_4.setBounds(381, 225, 21, 23);
 		frame.getContentPane().add(radioButton_4);
 		radioButton_4.setActionCommand("Delhi");
@@ -154,7 +158,8 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		JRadioButton radioButton_5 = new JRadioButton("");
-		radioButton_5.setBackground(Color.WHITE);
+		radioButton_5.setForeground(new Color(0, 0, 0));
+		radioButton_5.setBackground(new Color(189, 183, 107));
 		radioButton_5.setBounds(726, 225, 21, 23);
 		frame.getContentPane().add(radioButton_5);
 		radioButton_5.setActionCommand("Bengaluru");
@@ -178,6 +183,7 @@ public class DestinationsUI implements ActionListener {
 		Date d=new Date();
 		
 		 dateChooser = new JDateChooser();
+		 dateChooser.setForeground(new Color(0, 0, 0));
 		dateChooser.setBounds(448, 355, 100, 20);
 		try {
 		frame.getContentPane().add(dateChooser);
@@ -193,6 +199,7 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(lblCheckOutDate);
 		
 		dateChooser_1=new JDateChooser();
+		dateChooser_1.setForeground(new Color(0, 0, 0));
 		dateChooser_1.setBounds(448, 386, 100, 20);
 		dateChooser_1.setMinSelectableDate(d);
 		frame.getContentPane().add(dateChooser_1);	
@@ -203,6 +210,7 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(lblNoofRooms);
 		
 		textField = new JTextField();
+		textField.setForeground(new Color(0, 0, 0));
 		textField.setBounds(448, 417, 83, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -214,11 +222,14 @@ public class DestinationsUI implements ActionListener {
 		frame.getContentPane().add(lblNewLabel_3);
 		
 		textField_1 = new JTextField();
+		textField_1.setForeground(new Color(0, 0, 0));
 		textField_1.setBounds(448, 443, 83, 20);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setBackground(new Color(189, 183, 107));
+		btnSubmit.setForeground(new Color(0, 0, 0));
 		btnSubmit.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		btnSubmit.setBounds(401, 482, 89, 23);
 		frame.getContentPane().add(btnSubmit);

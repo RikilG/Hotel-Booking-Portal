@@ -58,6 +58,7 @@ public class ModifyHotelUI extends JFrame {
 	 * Create the frame.
 	 */
 	public ModifyHotelUI(UserRequirements req) {
+		getContentPane().setBackground(new Color(192, 192, 192));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 720, 430);
 		getContentPane().setLayout(null);
@@ -117,13 +118,21 @@ public class ModifyHotelUI extends JFrame {
 		JCheckBox btnDate = new JCheckBox("YES");
 		btnDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(btnDate.isSelected()) {
 				checkin.setVisible(true);
 				checkout.setVisible(true);
 				lblNewCheckoutDate.setVisible(true);
 				lblNewCheckinDate.setVisible(true);
+				}
+				if(!btnDate.isSelected()) {
+					checkin.setVisible(false);
+					checkout.setVisible(false);
+					lblNewCheckoutDate.setVisible(false);
+					lblNewCheckinDate.setVisible(false);
+					}
 			}
 		});
-		btnDate.setBounds(275, 95, 89, 23);
+		btnDate.setBounds(275, 95, 64, 23);
 		getContentPane().add(btnDate);
 		
 			
@@ -146,7 +155,7 @@ public class ModifyHotelUI extends JFrame {
 			}
 		});
 
-		btnRoom.setBounds(275, 199, 89, 23);
+		btnRoom.setBounds(275, 199, 64, 23);
 		getContentPane().add(btnRoom);
 		
 		JLabel lblPleaeEnterNumber = new JLabel("no of incomming people   :");
@@ -168,7 +177,7 @@ public class ModifyHotelUI extends JFrame {
 				lblPleaeEnterNumber.setVisible(true);
 			}
 		});
-		btnPeople.setBounds(275, 251, 89, 23);
+		btnPeople.setBounds(275, 251, 64, 23);
 		getContentPane().add(btnPeople);
 		
 		JButton btnConfirmChanges = new JButton("Confirm Changes");
@@ -280,7 +289,7 @@ public class ModifyHotelUI extends JFrame {
 				//dispose();
 			}
 		});
-		typeRoom.setBounds(275, 299, 113, 25);
+		typeRoom.setBounds(275, 299, 64, 25);
 		getContentPane().add(typeRoom);
 		
 		

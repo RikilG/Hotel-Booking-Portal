@@ -107,6 +107,7 @@ public class ProfileUI {
 		hotelList = bdb.userBookedHotels(portal.Main.logInCustomer.getId());
 		
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(210, 105, 30));
 		spanel = new JPanel();
 		spanel.setBackground(new Color(204, 153, 0));
 		scrollPane = new JScrollPane(spanel);

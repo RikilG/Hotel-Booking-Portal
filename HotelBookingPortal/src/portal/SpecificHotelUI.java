@@ -59,6 +59,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public SpecificHotelUI(int viewStatus,Hotel hotel) {
+		getContentPane().setBackground(new Color(169, 169, 169));
 		this.hotel = hotel;
 		getContentPane().setForeground(Color.BLUE);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,11 +68,12 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		
 		JPanel header = new JPanel();
 		header.setBounds(0, 0, getWidth()-18, 50);
-		header.setBackground(new Color(255, 102, 0));
+		header.setBackground(new Color(210, 105, 30));
 		header.setLayout(new BorderLayout(0, 0));
 		getContentPane().add(header, BorderLayout.NORTH);
 		
 		JPanel pnlContent = new JPanel();
+		pnlContent.setBackground(new Color(244, 164, 96));
 		pnlContent.setBounds(10, 63, 760, 477);
 		getContentPane().add(pnlContent);
 		pnlContent.setLayout(new BorderLayout(0, 0));
@@ -113,6 +115,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		header.add(ivProfile,BorderLayout.EAST);
 		
 		JPanel ivPane = new JPanel();
+		ivPane.setBackground(new Color(244, 164, 96));
 		ivPane.setLayout(null);
 		ivPane.setSize(new Dimension(250,pnlContent.getHeight()));
 		ivPane.setPreferredSize(new Dimension(250,pnlContent.getHeight()));
@@ -126,6 +129,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		pnlContent.add(ivPane,BorderLayout.WEST);
 		
 		JPanel pnlHotelTitle = new JPanel();
+		pnlHotelTitle.setBackground(new Color(184, 134, 11));
 		pnlContent.add(pnlHotelTitle, BorderLayout.NORTH);
 		
 		JLabel lblHotel = new JLabel("ABC  Hotel");
@@ -136,6 +140,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblHotel.setText(hotel.getName());
 		
 		JPanel pnlAmenities = new JPanel();
+		pnlAmenities.setBackground(new Color(143, 188, 143));
 		pnlContent.add(pnlAmenities, BorderLayout.CENTER);
 		pnlAmenities.setLayout(null);
 		
@@ -148,6 +153,8 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		lblHotelAmenities.setText(hotel.getAmenitiesList());
 		
 		JPanel pnlReviews = new JPanel();
+		pnlReviews.setBackground(new Color(169, 169, 169));
+		pnlReviews.setForeground(new Color(0, 0, 0));
 		pnlReviews.setPreferredSize(new Dimension(150, 400));
 		pnlReviews.setMinimumSize(new Dimension(150, 400));
 		pnlContent.add(pnlReviews, BorderLayout.EAST);
@@ -200,6 +207,7 @@ public class SpecificHotelUI extends JFrame implements ActionListener {
 		pnlReviews.add(emptyPanel3);
 		
 		JPanel pnlButtons = new JPanel();
+		pnlButtons.setBackground(new Color(205, 133, 63));
 		pnlContent.add(pnlButtons, BorderLayout.SOUTH);
 		
 		//if(viewStatus == BOOKING) {
